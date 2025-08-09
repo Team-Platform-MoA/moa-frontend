@@ -27,6 +27,19 @@ export default {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        korean: {
+          cream: "#FFFAE7",
+          brown: {
+            primary: "#6A3E01",
+            secondary: "#D8C2A1",
+            light: "#FFEEC0",
+            border: "#D2BEA0",
+            "border-alt": "#DEC39B",
+            dark: "#2D1B02",
+          },
+          input: "#FFF7DA",
+          progress: "#F1DFCB",
+        },
         destructive: {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
