@@ -1,10 +1,32 @@
 import { Button } from "@/components/korean/Button";
 import { BottomNavigation } from "@/components/korean/BottomNavigation";
+import { useHome } from "@/hooks/useHome";
 
 export const EmptyHome: React.FC = () => {
+  const { setHasConsultationRecords, setTodayStory } = useHome();
+
   const handleCallClick = () => {
     // TODO: Implement call functionality
     console.log("전화 걸기 clicked");
+  };
+
+  const handleDemoData = () => {
+    // Demo function to show data state
+    setTodayStory({
+      summary: "고생이 많은 하루였던 것 같아요.",
+      score: 65,
+      emotionalAnalysis: {
+        stress: 45,
+        resilience: 45,
+        emotionalStability: 45,
+      },
+      moaLetter: `안녕하세요! 오늘 하루도 수고하셨어요.
+
+오늘의 이야기를 들어보니 조금 힘든 하루를 보내신 것 같네요. 하지만 그 속에서도 열심히 노력하시는 모습이 느껴져요.
+
+스트레스가 조금 높게 나왔지만, 이럴 때일수록 충분한 휴식을 취하시기 바라요. 좋아하시는 음악을 듣거나 잘쏙 스트레칭을 해보세요.`,
+    });
+    setHasConsultationRecords(true);
   };
 
   return (
