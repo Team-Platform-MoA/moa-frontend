@@ -2,16 +2,19 @@ import { Header } from "@/components/korean/Header";
 import { ProgressBar } from "@/components/korean/ProgressBar";
 import { Button } from "@/components/korean/Button";
 import { useOnboarding } from "@/hooks/useOnboarding";
+import { useNavigate } from "react-router-dom";
 
 export const FinalCompletionStep: React.FC = () => {
   const { state, dispatch } = useOnboarding();
   const { userProfile } = state;
 
+  const navigate = useNavigate();
+
   const handleComplete = () => {
     // In a real app, you would save the data here
     console.log("Onboarding completed:", state);
-    alert("온보딩이 완료되었습니다!");
     dispatch({ type: "RESET" });
+    navigate("/home");
   };
 
   const handleBack = () => {
