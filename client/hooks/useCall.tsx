@@ -17,6 +17,7 @@ interface CallState {
   timer: number;
   isTimerActive: boolean;
   canProceed: boolean;
+  isRecommendedTimeReached: boolean;
 }
 
 interface CallContextType {
@@ -34,7 +35,8 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
     currentStep: 'intro',
     timer: 0,
     isTimerActive: false,
-    canProceed: false,
+    canProceed: true,
+    isRecommendedTimeReached: false,
   });
 
   // 타이머 로직
@@ -45,12 +47,12 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
       interval = setInterval(() => {
         setState(prev => {
           const newTimer = prev.timer + 1;
-          const canProceed = newTimer >= 60;
-          
+          const isRecommendedTimeReached = newTimer >= 60;
+
           return {
             ...prev,
             timer: newTimer,
-            canProceed,
+            isRecommendedTimeReached,
             isTimerActive: newTimer < 60
           };
         });
@@ -90,7 +92,8 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
             currentStep: nextStep,
             timer: 0,
             isTimerActive: true,
-            canProceed: false
+            canProceed: true,
+            isRecommendedTimeReached: false
           };
         }
         
@@ -112,7 +115,8 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
       ...prev,
       timer: 0,
       isTimerActive: true,
-      canProceed: false
+      canProceed: true,
+      isRecommendedTimeReached: false
     }));
   };
 
@@ -121,7 +125,8 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
       ...prev,
       timer: 0,
       isTimerActive: false,
-      canProceed: false
+      canProceed: true,
+      isRecommendedTimeReached: false
     }));
   };
 
@@ -131,7 +136,8 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({ children
       currentStep: step,
       timer: 0,
       isTimerActive: step.startsWith('question'),
-      canProceed: !step.startsWith('question')
+      canProceed: true,
+      isRecommendedTimeReached: false
     }));
   };
 
