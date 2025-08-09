@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: "primary" | "secondary" | "disabled";
+  variant?: "primary" | "secondary" | "disabled" | "waiting";
   onClick?: () => void;
   className?: string;
   type?: "button" | "submit";
@@ -24,6 +24,7 @@ export const Button: React.FC<ButtonProps> = ({
     secondary:
       "bg-korean-brown-light border border-korean-brown-border-alt text-korean-brown-dark hover:bg-korean-brown-secondary",
     disabled: "bg-korean-brown-secondary text-white cursor-not-allowed",
+    waiting: "bg-[#D8C2A1] text-white hover:bg-[#D8C2A1]",
   };
 
   return (
