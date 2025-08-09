@@ -9,11 +9,11 @@ interface CallQuestionProps {
   onBack?: () => void;
 }
 
-export const CallQuestion: React.FC<CallQuestionProps> = ({ 
-  questionNumber, 
-  question, 
-  onNext, 
-  onBack 
+export const CallQuestion: React.FC<CallQuestionProps> = ({
+  questionNumber,
+  question,
+  onNext,
+  onBack,
 }) => {
   const { state } = useCall();
   const { timer, canProceed, isRecommendedTimeReached } = state;
@@ -21,7 +21,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
@@ -34,7 +34,10 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
         <div className="flex items-center gap-1.5">
           <div className="w-4 h-3">
             <svg width="17" height="12" viewBox="0 0 17 12" fill="none">
-              <path d="M6.11231 8.95898C7.49091 7.68035 9.51017 7.68017 10.8887 8.95898C10.9579 9.02774 10.9981 9.12508 11 9.22753C11.0019 9.33007 10.9652 9.42913 10.8984 9.50097L8.73926 11.8906C8.67602 11.9606 8.58985 12 8.50001 12C8.41015 12 8.32398 11.9606 8.26075 11.8906L6.10157 9.50097C6.03487 9.42907 5.99803 9.33008 6.00001 9.22753C6.00199 9.12499 6.04291 9.02771 6.11231 8.95898Z" fill="#1D1E18"/>
+              <path
+                d="M6.11231 8.95898C7.49091 7.68035 9.51017 7.68017 10.8887 8.95898C10.9579 9.02774 10.9981 9.12508 11 9.22753C11.0019 9.33007 10.9652 9.42913 10.8984 9.50097L8.73926 11.8906C8.67602 11.9606 8.58985 12 8.50001 12C8.41015 12 8.32398 11.9606 8.26075 11.8906L6.10157 9.50097C6.03487 9.42907 5.99803 9.33008 6.00001 9.22753C6.00199 9.12499 6.04291 9.02771 6.11231 8.95898Z"
+                fill="#1D1E18"
+              />
             </svg>
           </div>
           <div className="w-[27px] h-3 opacity-35 border border-black rounded-sm"></div>
@@ -42,18 +45,16 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
       </div>
 
       {/* Header */}
-      <Header 
-        title="모아 Call" 
-        showBackButton={true} 
-        onBack={onBack}
-      />
+      <Header title="모아 Call" showBackButton={true} onBack={onBack} />
 
       {/* Question */}
       <div className="flex-1 flex flex-col items-center justify-start pt-8">
         <div className="text-center px-6 mb-8">
           <p className="text-black font-['Ownglyph ryuttung'] text-2xl font-normal leading-normal max-w-[255px]">
-            {String(questionNumber).padStart(2, '0')}<br />
-            {question}<br />
+            {String(questionNumber).padStart(2, "0")}
+            <br />
+            {question}
+            <br />
             (권장시간 1분)
           </p>
         </div>
@@ -67,9 +68,9 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
 
         {/* Character Image */}
         <div className="w-56 h-56 mb-8">
-          <img 
-            src="/images/call/character-question.png" 
-            alt="모아 캐릭터" 
+          <img
+            src="/images/call/character-question.png"
+            alt="모아 캐릭터"
             className="w-full h-full object-contain"
           />
         </div>

@@ -6,14 +6,16 @@ interface BottomNavigationProps {
   activeTab?: string;
 }
 
-export const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab = "home" }) => {
+export const BottomNavigation: React.FC<BottomNavigationProps> = ({
+  activeTab = "home",
+}) => {
   const navigate = useNavigate();
 
   // Get new reports count for badge
   let newReportsCount = 0;
   try {
     const { reports } = useReport();
-    newReportsCount = reports.filter(report => report.isNew).length;
+    newReportsCount = reports.filter((report) => report.isNew).length;
   } catch (error) {
     // useReport hook is only available when ReportProvider is present
     // This is fine for pages that don't need report functionality
@@ -23,11 +25,17 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab = 
     { id: "home", icon: Home, label: "홈", path: "/home" },
     { id: "call", icon: Phone, label: "전화", path: "/call" },
     { id: "message", icon: Mail, label: "메시지", path: "/postbox" },
-    { id: "report", icon: BarChart3, label: "리포트", path: "/report", badge: newReportsCount },
+    {
+      id: "report",
+      icon: BarChart3,
+      label: "리포트",
+      path: "/report",
+      badge: newReportsCount,
+    },
     { id: "profile", icon: User, label: "프로필", path: "#" },
   ];
 
-  const handleTabClick = (tab: typeof tabs[0]) => {
+  const handleTabClick = (tab: (typeof tabs)[0]) => {
     if (tab.path !== "#") {
       navigate(tab.path);
     }
@@ -38,7 +46,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab = 
       {tabs.map((tab) => {
         const Icon = tab.icon;
         const isActive = activeTab === tab.id;
-        
+
         return (
           <button
             key={tab.id}

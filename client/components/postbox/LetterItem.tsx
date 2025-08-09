@@ -6,12 +6,12 @@ interface LetterItemProps {
 }
 
 export const LetterItem: React.FC<LetterItemProps> = ({ letter, onClick }) => {
-  const getLetterImagePath = (style: Letter['letterStyle']) => {
+  const getLetterImagePath = (style: Letter["letterStyle"]) => {
     const styleMap = {
-      'envelope1': 'envelope1.png',
-      'envelope2': 'envelope2.png', 
-      'envelope3': 'envelope3.png',
-      'envelope4': 'envelope4.png',
+      envelope1: "envelope1.png",
+      envelope2: "envelope2.png",
+      envelope3: "envelope3.png",
+      envelope4: "envelope4.png",
     };
     return `/images/postbox/${styleMap[style]}`;
   };
@@ -28,13 +28,13 @@ export const LetterItem: React.FC<LetterItemProps> = ({ letter, onClick }) => {
     >
       {/* Letter Image */}
       <div className="w-[98px] h-[78px] flex-shrink-0">
-        <img 
+        <img
           src={getLetterImagePath(letter.letterStyle)}
           alt={`${formatDate(letter.date)} 편지`}
           className="w-full h-full object-contain"
         />
       </div>
-      
+
       {/* Date */}
       <div className="text-black text-center font-pretendard text-sm font-normal leading-normal tracking-tight">
         {formatDate(letter.date)}

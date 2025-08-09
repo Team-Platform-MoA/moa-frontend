@@ -1,5 +1,5 @@
-import { useReport } from '../../hooks/useReport';
-import { ProgressBar } from '../korean/ProgressBar';
+import { useReport } from "../../hooks/useReport";
+import { ProgressBar } from "../korean/ProgressBar";
 
 export function ReportList() {
   const { reports, selectReport, markReportAsRead } = useReport();
@@ -49,7 +49,7 @@ export function ReportList() {
                   N
                 </div>
               )}
-              
+
               {/* Report Header */}
               <div className="flex items-start justify-between mb-4">
                 <div className="flex-1">
@@ -76,8 +76,8 @@ export function ReportList() {
                   <div className="text-[14px] text-gray-600 mb-1 font-['Pretendard']">
                     이번 주 종합 감정 점수
                   </div>
-                  <ProgressBar 
-                    progress={report.emotionScore} 
+                  <ProgressBar
+                    progress={report.emotionScore}
                     color="#4CC3BE"
                     backgroundColor="#D9EEF0"
                   />
@@ -87,9 +87,11 @@ export function ReportList() {
               {/* Quick Stats */}
               <div className="grid grid-cols-3 gap-3">
                 <div className="text-center">
-                  <div className="text-[12px] text-gray-500 mb-1 font-['Pretendard']">스트레스</div>
+                  <div className="text-[12px] text-gray-500 mb-1 font-['Pretendard']">
+                    스트레스
+                  </div>
                   <div className="w-full h-2 bg-[#FFDBDB] rounded-full overflow-hidden">
-                    <div 
+                    <div
                       className="h-full bg-[#FF6E6E] rounded-full transition-all duration-300"
                       style={{ width: `${report.emotionalAnalysis.stress}%` }}
                     />
@@ -99,11 +101,15 @@ export function ReportList() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-[12px] text-gray-500 mb-1 font-['Pretendard']">회복력</div>
+                  <div className="text-[12px] text-gray-500 mb-1 font-['Pretendard']">
+                    회복력
+                  </div>
                   <div className="w-full h-2 bg-[#E1F7BE] rounded-full overflow-hidden">
-                    <div 
+                    <div
                       className="h-full bg-[#B2E96F] rounded-full transition-all duration-300"
-                      style={{ width: `${report.emotionalAnalysis.resilience}%` }}
+                      style={{
+                        width: `${report.emotionalAnalysis.resilience}%`,
+                      }}
                     />
                   </div>
                   <div className="text-[11px] text-gray-600 mt-1 font-['Pretendard']">
@@ -111,11 +117,15 @@ export function ReportList() {
                   </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-[12px] text-gray-500 mb-1 font-['Pretendard']">안정성</div>
+                  <div className="text-[12px] text-gray-500 mb-1 font-['Pretendard']">
+                    안정성
+                  </div>
                   <div className="w-full h-2 bg-[#EAE3ED] rounded-full overflow-hidden">
-                    <div 
+                    <div
                       className="h-full bg-[#8A50C1] rounded-full transition-all duration-300"
-                      style={{ width: `${report.emotionalAnalysis.emotionalStability}%` }}
+                      style={{
+                        width: `${report.emotionalAnalysis.emotionalStability}%`,
+                      }}
                     />
                   </div>
                   <div className="text-[11px] text-gray-600 mt-1 font-['Pretendard']">

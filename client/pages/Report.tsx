@@ -1,5 +1,5 @@
-import { Report } from '../components/report/Report';
-import { BottomNavigation } from '../components/korean/BottomNavigation';
+import { Report } from "../components/report/Report";
+import { BottomNavigation } from "../components/korean/BottomNavigation";
 
 export default function ReportPage() {
   return (
