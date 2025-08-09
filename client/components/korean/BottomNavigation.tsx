@@ -9,11 +9,21 @@ interface BottomNavigationProps {
 export const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab = "home" }) => {
   const navigate = useNavigate();
 
+  // Get new reports count for badge
+  let newReportsCount = 0;
+  try {
+    const { reports } = useReport();
+    newReportsCount = reports.filter(report => report.isNew).length;
+  } catch (error) {
+    // useReport hook is only available when ReportProvider is present
+    // This is fine for pages that don't need report functionality
+  }
+
   const tabs = [
     { id: "home", icon: Home, label: "홈", path: "/home" },
     { id: "call", icon: Phone, label: "전화", path: "/call" },
     { id: "message", icon: Mail, label: "메시지", path: "/postbox" },
-    { id: "report", icon: BarChart3, label: "리포트", path: "/report" },
+    { id: "report", icon: BarChart3, label: "리포트", path: "/report", badge: newReportsCount },
     { id: "profile", icon: User, label: "프로필", path: "#" },
   ];
 
