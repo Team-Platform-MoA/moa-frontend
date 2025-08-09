@@ -1,5 +1,6 @@
 import { Home, Phone, Mail, BarChart3, User } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useReport } from "../../hooks/useReport";
 
 interface BottomNavigationProps {
   activeTab?: string;
