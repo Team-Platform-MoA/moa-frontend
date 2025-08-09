@@ -32,7 +32,7 @@ export const EmptyHome: React.FC = () => {
   return (
     <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center px-8 pt-25 pb-20">
+      <div className="flex-1 flex flex-col items-center px-8 pb-20" style={{ paddingTop: '100px' }}>
         {/* Header Section */}
         <div className="w-full max-w-82 flex flex-col gap-3 mb-15">
           <h1 className="text-black font-pretendard text-[32px] font-bold tracking-tight">
@@ -53,13 +53,13 @@ export const EmptyHome: React.FC = () => {
             제가 맞춤 감정일기를 써드릴게요!
           </p>
           
-          {/* Character Image Placeholder */}
-          <div className="w-55 h-55 bg-korean-brown-secondary rounded-full flex items-center justify-center relative">
-            <div className="w-32 h-32 bg-korean-brown-primary rounded-full"></div>
-            {/* Phone icon in speech bubble */}
-            <div className="absolute -top-2 -right-2 w-16 h-16 bg-korean-brown-light rounded-full border-2 border-korean-brown-border flex items-center justify-center">
-              <div className="w-8 h-8 bg-korean-brown-primary rounded"></div>
-            </div>
+          {/* Character Image */}
+          <div className="relative">
+            <img
+              src="/images/character-empty.png"
+              alt="모아 캐릭터 - 빈 상태"
+              className="w-55 h-55 object-contain"
+            />
           </div>
         </div>
 
