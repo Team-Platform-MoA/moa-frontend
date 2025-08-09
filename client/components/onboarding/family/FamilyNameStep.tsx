@@ -66,10 +66,7 @@ export const FamilyNameStep: React.FC = () => {
 
       {/* Next button */}
       <div className="px-6 pb-8">
-        <Button
-          variant={isValid ? "primary" : "disabled"}
-          onClick={handleNext}
-        >
+        <Button variant={isValid ? "primary" : "disabled"} onClick={handleNext}>
           다음
         </Button>
       </div>

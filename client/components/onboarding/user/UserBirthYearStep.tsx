@@ -18,10 +18,11 @@ export const UserBirthYearStep: React.FC = () => {
     dispatch({ type: "PREV_STEP" });
   };
 
-  const isValid = userProfile.birthYear.trim().length === 4 && 
-                  /^\d{4}$/.test(userProfile.birthYear) &&
-                  parseInt(userProfile.birthYear) >= 1900 &&
-                  parseInt(userProfile.birthYear) <= new Date().getFullYear();
+  const isValid =
+    userProfile.birthYear.trim().length === 4 &&
+    /^\d{4}$/.test(userProfile.birthYear) &&
+    parseInt(userProfile.birthYear) >= 1900 &&
+    parseInt(userProfile.birthYear) <= new Date().getFullYear();
 
   return (
     <div className="w-full h-screen bg-korean-cream flex flex-col">
@@ -68,10 +69,7 @@ export const UserBirthYearStep: React.FC = () => {
 
       {/* Next button */}
       <div className="px-6 pb-8">
-        <Button
-          variant={isValid ? "primary" : "disabled"}
-          onClick={handleNext}
-        >
+        <Button variant={isValid ? "primary" : "disabled"} onClick={handleNext}>
           다음
         </Button>
       </div>

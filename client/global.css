@@ -1,5 +1,5 @@
-@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
-@import url('https://fonts.googleapis.com/css2?family=Ownglyph+Ryuttung&display=swap');
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Ownglyph+Ryuttung&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -105,17 +105,29 @@
 
   body {
     @apply bg-korean-cream text-foreground;
-    font-family: 'Pretendard', -apple-system, 'system-ui', sans-serif;
+    font-family:
+      "Pretendard",
+      -apple-system,
+      "system-ui",
+      sans-serif;
     font-display: swap;
   }
 
   .font-ownglyph {
-    font-family: 'Ownglyph Ryuttung', -apple-system, 'system-ui', sans-serif;
+    font-family:
+      "Ownglyph Ryuttung",
+      -apple-system,
+      "system-ui",
+      sans-serif;
     font-display: swap;
   }
 
   .font-pretendard {
-    font-family: 'Pretendard', -apple-system, 'system-ui', sans-serif;
+    font-family:
+      "Pretendard",
+      -apple-system,
+      "system-ui",
+      sans-serif;
     font-display: swap;
   }
 

@@ -18,10 +18,11 @@ export const UserCareHoursStep: React.FC = () => {
     dispatch({ type: "PREV_STEP" });
   };
 
-  const isValid = userProfile.careHours.trim().length > 0 && 
-                  /^\d+$/.test(userProfile.careHours) &&
-                  parseInt(userProfile.careHours) >= 0 &&
-                  parseInt(userProfile.careHours) <= 24;
+  const isValid =
+    userProfile.careHours.trim().length > 0 &&
+    /^\d+$/.test(userProfile.careHours) &&
+    parseInt(userProfile.careHours) >= 0 &&
+    parseInt(userProfile.careHours) <= 24;
 
   return (
     <div className="w-full h-screen bg-korean-cream flex flex-col">
@@ -68,10 +69,7 @@ export const UserCareHoursStep: React.FC = () => {
 
       {/* Next button */}
       <div className="px-6 pb-8">
-        <Button
-          variant={isValid ? "primary" : "disabled"}
-          onClick={handleNext}
-        >
+        <Button variant={isValid ? "primary" : "disabled"} onClick={handleNext}>
           완료
         </Button>
       </div>

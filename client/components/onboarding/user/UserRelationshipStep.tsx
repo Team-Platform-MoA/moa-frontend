@@ -10,9 +10,9 @@ export const UserRelationshipStep: React.FC = () => {
 
   const relationshipOptions = [
     "제가 자녀예요",
-    "제가 배우자예요", 
+    "제가 배우자예요",
     "제가 며느리/사위예요",
-    "제가 손주예요"
+    "제가 손주예요",
   ] as const;
 
   const handleNext = () => {
@@ -25,7 +25,9 @@ export const UserRelationshipStep: React.FC = () => {
     dispatch({ type: "PREV_STEP" });
   };
 
-  const handleRelationshipSelect = (relationship: typeof relationshipOptions[number]) => {
+  const handleRelationshipSelect = (
+    relationship: (typeof relationshipOptions)[number],
+  ) => {
     dispatch({
       type: "UPDATE_USER_PROFILE",
       payload: { familyRelationship: relationship },
@@ -78,10 +80,7 @@ export const UserRelationshipStep: React.FC = () => {
 
       {/* Next button */}
       <div className="px-6 pb-8">
-        <Button
-          variant={isValid ? "primary" : "disabled"}
-          onClick={handleNext}
-        >
+        <Button variant={isValid ? "primary" : "disabled"} onClick={handleNext}>
           다음
         </Button>
       </div>

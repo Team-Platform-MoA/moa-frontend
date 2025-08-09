@@ -13,8 +13,9 @@ export const ChoiceButton: React.FC<ChoiceButtonProps> = ({
   onClick,
   className,
 }) => {
-  const baseClasses = "flex w-full justify-center items-center gap-2.5 rounded-xl h-16 font-pretendard text-xl font-normal tracking-tight transition-colors";
-  
+  const baseClasses =
+    "flex w-full justify-center items-center gap-2.5 rounded-xl h-16 font-pretendard text-xl font-normal tracking-tight transition-colors";
+
   const variantClasses = selected
     ? "bg-korean-brown-primary border border-korean-brown-primary text-white"
     : "bg-korean-brown-light border border-korean-brown-border-alt text-korean-brown-dark hover:bg-korean-brown-secondary";

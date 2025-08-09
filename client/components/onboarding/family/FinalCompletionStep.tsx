@@ -34,13 +34,15 @@ export const FinalCompletionStep: React.FC = () => {
       <div className="flex-1 flex flex-col items-center justify-center px-16">
         <div className="text-center mb-12">
           <h2 className="text-black font-ownglyph text-[32px] font-normal leading-tight tracking-tight mb-8">
-            전부 완성되었어요!<br />
+            전부 완성되었어요!
             <br />
-            이제 제가 {userProfile.name}님께 맞는<br />
+            <br />
+            이제 제가 {userProfile.name}님께 맞는
+            <br />
             케어와 ~~를 해드릴게요.
           </h2>
         </div>
-        
+
         {/* Placeholder for image - using a simple colored circle */}
         <div className="w-60 h-60 bg-korean-brown-secondary rounded-full mb-12 flex items-center justify-center">
           <div className="w-32 h-32 bg-korean-brown-primary rounded-full"></div>

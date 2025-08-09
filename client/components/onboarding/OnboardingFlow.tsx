@@ -20,7 +20,8 @@ export const OnboardingFlow: React.FC = () => {
   const { currentFlow, currentStep } = state;
 
   // Mobile-first responsive container
-  const containerClasses = "w-full max-w-md mx-auto min-h-screen bg-korean-cream flex flex-col";
+  const containerClasses =
+    "w-full max-w-md mx-auto min-h-screen bg-korean-cream flex flex-col";
 
   // User profile flow
   if (currentFlow === "user") {

@@ -20,7 +20,7 @@ export const FamilyDementiaStep: React.FC = () => {
     dispatch({ type: "PREV_STEP" });
   };
 
-  const handleStageSelect = (stage: typeof stageOptions[number]) => {
+  const handleStageSelect = (stage: (typeof stageOptions)[number]) => {
     dispatch({
       type: "UPDATE_FAMILY_PROFILE",
       payload: { dementiaStage: stage },
@@ -73,10 +73,7 @@ export const FamilyDementiaStep: React.FC = () => {
 
       {/* Next button */}
       <div className="px-6 pb-8">
-        <Button
-          variant={isValid ? "primary" : "disabled"}
-          onClick={handleNext}
-        >
+        <Button variant={isValid ? "primary" : "disabled"} onClick={handleNext}>
           다음
         </Button>
       </div>

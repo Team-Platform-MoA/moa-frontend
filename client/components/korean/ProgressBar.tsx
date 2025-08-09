@@ -3,10 +3,7 @@ interface ProgressBarProps {
   total: number;
 }
 
-export const ProgressBar: React.FC<ProgressBarProps> = ({
-  current,
-  total,
-}) => {
+export const ProgressBar: React.FC<ProgressBarProps> = ({ current, total }) => {
   const progressWidth = (current / total) * 100;
 
   return (

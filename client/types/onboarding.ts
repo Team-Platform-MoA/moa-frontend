@@ -2,7 +2,12 @@ export interface UserProfile {
   name: string;
   birthYear: string;
   gender: "여성" | "남성" | "기타" | "";
-  familyRelationship: "제가 자녀예요" | "제가 배우자예요" | "제가 며느리/사위예요" | "제가 손주예요" | "";
+  familyRelationship:
+    | "제가 자녀예요"
+    | "제가 배우자예요"
+    | "제가 며느리/사위예요"
+    | "제가 손주예요"
+    | "";
   careHours: string;
 }
 

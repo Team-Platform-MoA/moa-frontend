@@ -14,8 +14,12 @@ export const Input: React.FC<InputProps> = ({
   className,
 }) => {
   const isEmpty = !value.trim();
-  const borderColor = isEmpty ? "border-korean-brown-border" : "border-korean-brown-dark";
-  const textColor = isEmpty ? "text-korean-brown-border" : "text-korean-brown-dark";
+  const borderColor = isEmpty
+    ? "border-korean-brown-border"
+    : "border-korean-brown-dark";
+  const textColor = isEmpty
+    ? "text-korean-brown-border"
+    : "text-korean-brown-dark";
 
   return (
     <div className="w-full px-6">
@@ -23,7 +27,7 @@ export const Input: React.FC<InputProps> = ({
         className={cn(
           "flex w-full h-12 px-4 py-3 items-center rounded-lg border bg-korean-input transition-colors",
           borderColor,
-          className
+          className,
         )}
       >
         <input
@@ -33,7 +37,7 @@ export const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           className={cn(
             "flex-1 bg-transparent font-pretendard text-xl font-light tracking-tight outline-none placeholder:text-korean-brown-border",
-            textColor
+            textColor,
           )}
         />
       </div>
