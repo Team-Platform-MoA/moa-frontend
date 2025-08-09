@@ -64,9 +64,14 @@ export const EmptyHome: React.FC = () => {
         </div>
 
         {/* Call Button */}
-        <div className="w-full max-w-86 px-6">
+        <div className="w-full max-w-86 px-6 space-y-4">
           <Button variant="primary" onClick={handleCallClick}>
             전화 걸기
+          </Button>
+
+          {/* Demo button for testing */}
+          <Button variant="secondary" onClick={handleDemoData}>
+            데모 데이터 보기
           </Button>
         </div>
       </div>
