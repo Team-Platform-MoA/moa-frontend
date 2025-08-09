@@ -131,23 +131,26 @@
     font-display: swap;
   }
 
-  /* Ensure proper mobile viewport */
+  /* Mobile-only optimizations */
   html {
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Prevent zoom on input focus */
+    -webkit-user-scalable: no;
+    user-scalable: no;
   }
 
-  /* Mobile-first responsive design */
-  @screen sm {
-    body {
-      font-size: 16px;
-    }
+  /* Mobile viewport settings */
+  body {
+    font-size: 16px;
+    /* Prevent pull-to-refresh */
+    overscroll-behavior: none;
   }
 
-  @screen md {
-    body {
-      font-size: 18px;
-    }
+  /* Mobile input optimizations */
+  input {
+    /* Prevent zoom on iOS */
+    font-size: 16px;
   }
 }
