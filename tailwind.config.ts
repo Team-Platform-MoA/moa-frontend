@@ -5,13 +5,7 @@ export default {
   content: ["./client/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
-    container: {
-      center: true,
-      padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
-    },
+    // Removed container config - mobile-only app doesn't need desktop breakpoints
     extend: {
       colors: {
         border: "hsl(var(--border))",
