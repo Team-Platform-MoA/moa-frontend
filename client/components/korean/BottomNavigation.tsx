@@ -11,7 +11,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab = 
   const tabs = [
     { id: "home", icon: Home, label: "홈", path: "/home" },
     { id: "call", icon: Phone, label: "전화", path: "/call" },
-    { id: "message", icon: Mail, label: "메시지", path: "#" },
+    { id: "message", icon: Mail, label: "메시지", path: "/postbox" },
     { id: "chart", icon: BarChart3, label: "차트", path: "#" },
     { id: "profile", icon: User, label: "프로필", path: "#" },
   ];
