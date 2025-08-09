@@ -35,8 +35,12 @@ export const Input: React.FC<InputProps> = ({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
+          autoComplete="off"
+          autoCapitalize="off"
+          autoCorrect="off"
+          spellCheck="false"
           className={cn(
-            "flex-1 bg-transparent font-pretendard text-xl font-light tracking-tight outline-none placeholder:text-korean-brown-border",
+            "flex-1 bg-transparent font-pretendard text-xl font-light tracking-tight outline-none placeholder:text-korean-brown-border touch-manipulation",
             textColor,
           )}
         />
