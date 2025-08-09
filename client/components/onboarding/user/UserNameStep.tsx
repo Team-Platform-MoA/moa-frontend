@@ -17,7 +17,7 @@ export const UserNameStep: React.FC = () => {
   const isValid = userProfile.name.trim().length > 0;
 
   return (
-    <div className="w-full h-screen bg-korean-cream flex flex-col">
+    <div className="w-full max-w-md mx-auto min-h-screen bg-korean-cream flex flex-col">
       {/* Header */}
       <div className="pt-12 pb-6">
         <Header title="내 프로필 설정" />
