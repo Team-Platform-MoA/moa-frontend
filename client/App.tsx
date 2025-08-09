@@ -8,10 +8,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { OnboardingProvider } from "@/hooks/useOnboarding";
 import { HomeProvider } from "@/hooks/useHome";
+import { ReportProvider } from "@/hooks/useReport";
 import Index from "./pages/Index";
 import Home from "./pages/Home";
 import Call from "./pages/Call";
 import Postbox from "./pages/Postbox";
+import Report from "./pages/Report";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
