@@ -16,7 +16,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
   onBack 
 }) => {
   const { state } = useCall();
-  const { timer, canProceed } = state;
+  const { timer, canProceed, isRecommendedTimeReached } = state;
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -77,9 +77,9 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
 
       {/* Next Button */}
       <div className="px-6 pb-6">
-        <Button 
-          variant={canProceed ? "primary" : "disabled"}
-          onClick={canProceed ? onNext : undefined}
+        <Button
+          variant={isRecommendedTimeReached ? "primary" : "waiting"}
+          onClick={onNext}
         >
           다음
         </Button>
