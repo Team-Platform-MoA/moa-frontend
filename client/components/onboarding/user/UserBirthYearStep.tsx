@@ -25,7 +25,7 @@ export const UserBirthYearStep: React.FC = () => {
     parseInt(userProfile.birthYear) <= new Date().getFullYear();
 
   return (
-    <div className="w-full h-screen bg-korean-cream flex flex-col">
+    <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
       {/* Header */}
       <div className="pt-12 pb-6">
         <Header title="내 프로필 설정" showBackButton onBack={handleBack} />
