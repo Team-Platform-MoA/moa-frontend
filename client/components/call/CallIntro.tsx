@@ -50,7 +50,7 @@ export const CallIntro: React.FC<CallIntroProps> = ({ onStartCall }) => {
           <div className="w-[220px] h-[220px] mb-8">
             <img 
               src="/images/call/character-intro.png" 
-              alt="모아 캐릭터" 
+              alt="모아 캐���터" 
               className="w-full h-full object-contain"
             />
           </div>
@@ -69,7 +69,7 @@ export const CallIntro: React.FC<CallIntroProps> = ({ onStartCall }) => {
       </div>
 
       {/* Bottom Navigation */}
-      <BottomNavigation currentTab="call" />
+      <BottomNavigation activeTab="call" />
     </div>
   );
 };

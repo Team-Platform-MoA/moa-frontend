@@ -53,7 +53,7 @@ export const CallCompleted: React.FC = () => {
       </div>
 
       {/* Bottom Navigation */}
-      <BottomNavigation currentTab="call" />
+      <BottomNavigation activeTab="call" />
     </div>
   );
 };
