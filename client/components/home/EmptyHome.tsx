@@ -1,13 +1,14 @@
 import { Button } from "@/components/korean/Button";
 import { BottomNavigation } from "@/components/korean/BottomNavigation";
 import { useHome } from "@/hooks/useHome";
+import { useNavigate } from "react-router-dom";
 
 export const EmptyHome: React.FC = () => {
   const { setHasConsultationRecords, setTodayStory } = useHome();
+  const navigate = useNavigate();
 
   const handleCallClick = () => {
-    // TODO: Implement call functionality
-    console.log("전화 걸기 clicked");
+    navigate("/call");
   };
 
   const handleDemoData = () => {
