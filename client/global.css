@@ -106,9 +106,36 @@
   body {
     @apply bg-korean-cream text-foreground;
     font-family: 'Pretendard', -apple-system, 'system-ui', sans-serif;
+    font-display: swap;
   }
 
   .font-ownglyph {
     font-family: 'Ownglyph Ryuttung', -apple-system, 'system-ui', sans-serif;
+    font-display: swap;
+  }
+
+  .font-pretendard {
+    font-family: 'Pretendard', -apple-system, 'system-ui', sans-serif;
+    font-display: swap;
+  }
+
+  /* Ensure proper mobile viewport */
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Mobile-first responsive design */
+  @screen sm {
+    body {
+      font-size: 16px;
+    }
+  }
+
+  @screen md {
+    body {
+      font-size: 18px;
+    }
   }
 }
