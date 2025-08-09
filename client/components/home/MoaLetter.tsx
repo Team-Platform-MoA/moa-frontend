@@ -17,12 +17,12 @@ export const MoaLetter: React.FC<MoaLetterProps> = ({ content }) => {
           {content}
         </div>
         
-        {/* Moa character illustration placeholder */}
-        <div className="absolute right-12 bottom-12 w-29 h-29 bg-korean-brown-secondary rounded-full flex items-center justify-center">
-          <div className="w-20 h-20 bg-korean-brown-primary rounded-full"></div>
-          {/* Letter/envelope icon */}
-          <div className="absolute -top-2 -left-2 w-8 h-6 bg-korean-brown-light rounded border border-korean-brown-border"></div>
-        </div>
+        {/* Moa character illustration */}
+        <img
+          src="/images/moa-letter.png"
+          alt="모아 캐릭터 - 편지"
+          className="absolute right-12 bottom-12 w-29 h-29 object-contain"
+        />
       </div>
     </div>
   );
