@@ -19,9 +19,8 @@ export const OnboardingFlow: React.FC = () => {
   const { state } = useOnboarding();
   const { currentFlow, currentStep } = state;
 
-  // Mobile-first responsive container
-  const containerClasses =
-    "w-full max-w-md mx-auto min-h-screen bg-korean-cream flex flex-col";
+  // Mobile-only container - no desktop considerations
+  // containerClasses variable removed as we don't need responsive breakpoints
 
   // User profile flow
   if (currentFlow === "user") {
