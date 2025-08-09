@@ -10,6 +10,7 @@ import { OnboardingProvider } from "@/hooks/useOnboarding";
 import { HomeProvider } from "@/hooks/useHome";
 import Index from "./pages/Index";
 import Home from "./pages/Home";
+import Call from "./pages/Call";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/home" element={<Home />} />
+              <Route path="/call" element={<Call />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
