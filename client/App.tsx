@@ -11,6 +11,7 @@ import { HomeProvider } from "@/hooks/useHome";
 import Index from "./pages/Index";
 import Home from "./pages/Home";
 import Call from "./pages/Call";
+import Postbox from "./pages/Postbox";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/home" element={<Home />} />
               <Route path="/call" element={<Call />} />
+              <Route path="/postbox" element={<Postbox />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
