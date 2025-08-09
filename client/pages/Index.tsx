@@ -2,7 +2,7 @@ import { OnboardingFlow } from "@/components/onboarding/OnboardingFlow";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-korean-cream">
+    <div className="h-screen w-screen bg-korean-cream overflow-hidden">
       <OnboardingFlow />
     </div>
   );
