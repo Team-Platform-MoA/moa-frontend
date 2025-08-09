@@ -20,7 +20,7 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
   return (
     <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-6 pt-25 pb-28">
+      <div className="flex-1 overflow-y-auto px-6 pb-28" style={{ paddingTop: '100px' }}>
         {/* Header */}
         <h1 className="text-black font-pretendard text-[32px] font-bold tracking-tight mb-6">
           오늘의 이야기
