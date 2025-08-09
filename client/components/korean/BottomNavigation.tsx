@@ -12,7 +12,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({ activeTab = 
     { id: "home", icon: Home, label: "홈", path: "/home" },
     { id: "call", icon: Phone, label: "전화", path: "/call" },
     { id: "message", icon: Mail, label: "메시지", path: "/postbox" },
-    { id: "chart", icon: BarChart3, label: "차트", path: "#" },
+    { id: "report", icon: BarChart3, label: "리포트", path: "/report" },
     { id: "profile", icon: User, label: "프로필", path: "#" },
   ];
 
