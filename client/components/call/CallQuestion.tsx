@@ -1,6 +1,8 @@
 import { Button } from "@/components/korean/Button";
 import { Header } from "@/components/korean/Header";
 import { useCall } from "@/hooks/useCall";
+import { useAudioRecorder } from "@/hooks/useAudioRecorder";
+import { useState } from "react";
 
 interface CallQuestionProps {
   questionNumber: number;
@@ -17,6 +19,26 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
 }) => {
   const { state } = useCall();
   const { timer, canProceed, isRecommendedTimeReached } = state;
+  const [isRecordingComplete, setIsRecordingComplete] = useState(false);
+
+  const {
+    recordingState,
+    recordingTime,
+    audioBlob,
+    error,
+    startRecording,
+    stopRecording,
+    resetRecording,
+    uploadAudio,
+    isRecording,
+    canUpload,
+    isUploading,
+    isUploaded,
+  } = useAudioRecorder({
+    onRecordingComplete: () => {
+      setIsRecordingComplete(true);
+    }
+  });
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -24,66 +46,169 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
     return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
   };
 
+  const handleRecordingToggle = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  };
+
+  const handleUploadAndNext = async () => {
+    if (canUpload && audioBlob) {
+      try {
+        await uploadAudio(audioBlob, questionNumber);
+        onNext();
+      } catch (error) {
+        console.error('Upload failed:', error);
+      }
+    } else if (isUploaded) {
+      onNext();
+    }
+  };
+
+
   return (
-    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col">
-      {/* Status Bar */}
-      <div className="w-full h-12 flex items-center justify-between px-7 pt-3.5">
-        <div className="text-[#1D1E18] text-[17px] font-semibold font-['SF Pro Text'] leading-snug tracking-tight">
-          9:41
-        </div>
-        <div className="flex items-center gap-1.5">
-          <div className="w-4 h-3">
-            <svg width="17" height="12" viewBox="0 0 17 12" fill="none">
-              <path
-                d="M6.11231 8.95898C7.49091 7.68035 9.51017 7.68017 10.8887 8.95898C10.9579 9.02774 10.9981 9.12508 11 9.22753C11.0019 9.33007 10.9652 9.42913 10.8984 9.50097L8.73926 11.8906C8.67602 11.9606 8.58985 12 8.50001 12C8.41015 12 8.32398 11.9606 8.26075 11.8906L6.10157 9.50097C6.03487 9.42907 5.99803 9.33008 6.00001 9.22753C6.00199 9.12499 6.04291 9.02771 6.11231 8.95898Z"
-                fill="#1D1E18"
-              />
-            </svg>
-          </div>
-          <div className="w-[27px] h-3 opacity-35 border border-black rounded-sm"></div>
-        </div>
+    <div className="w-full h-screen bg-[#FFFAE7] flex flex-col overflow-hidden">
+      {/* Header */}
+      <div className="flex-shrink-0">
+        <Header title="모아 Call" showBackButton={true} onBack={onBack} />
       </div>
 
-      {/* Header */}
-      <Header title="모아 Call" showBackButton={true} onBack={onBack} />
-
-      {/* Question */}
-      <div className="flex-1 flex flex-col items-center justify-start pt-8">
-        <div className="text-center px-6 mb-8">
-          <p className="text-black font-['Ownglyph ryuttung'] text-2xl font-normal leading-normal max-w-[255px]">
+      {/* Main Content - 뷰포트 높이에 맞춤 */}
+      <div className="flex-1 flex flex-col justify-between px-4 py-2 min-h-0">
+        
+        {/* Question Section */}
+        <div className="text-center mb-2">
+          <p className="text-black font-['Ownglyph ryuttung'] text-lg sm:text-xl font-normal leading-tight">
             {String(questionNumber).padStart(2, "0")}
             <br />
             {question}
             <br />
-            (권장시간 1분)
+            <span className="text-sm sm:text-base text-korean-brown-secondary">(권장시간 1분)</span>
           </p>
         </div>
 
-        {/* Timer */}
-        <div className="mb-8">
-          <div className="text-black font-pretendard text-4xl font-bold leading-normal tracking-tight">
-            {formatTime(timer)}
+        {/* 녹음 타이머 - 모바일 최적화 */}
+        <div className="flex-1 flex flex-col justify-center">
+          <div className="bg-korean-cream rounded-xl shadow-md px-4 py-4 mx-2 border-2 border-korean-brown-border">
+            <div className="text-korean-brown-primary font-pretendard text-sm font-medium mb-1 text-center">
+              {isRecording ? "녹음 시간" : "대기 중"}
+            </div>
+            <div className={`font-pretendard text-4xl sm:text-5xl md:text-6xl font-bold leading-tight text-center ${
+              isRecording ? "text-korean-brown-primary" : "text-korean-brown-secondary"
+            }`}>
+              {formatTime(isRecording ? recordingTime : 0)}
+            </div>
+            {isRecording && (
+              <div className="flex items-center justify-center mt-2">
+                <div className="w-2 h-2 bg-korean-brown-primary rounded-full animate-pulse mr-2"></div>
+                <span className="text-korean-brown-primary font-medium text-sm">녹음 중</span>
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Character Image */}
-        <div className="w-56 h-56 mb-8">
-          <img
-            src="/images/call/character-question.png"
-            alt="모아 캐릭터"
-            className="w-full h-full object-contain"
-          />
-        </div>
-      </div>
+        {/* Bottom Section - 캐릭터, 컨트롤, 상태 */}
+        <div className="flex-shrink-0">
+          {/* Recording Status - 간결하게 */}
+          {(recordingState === 'stopped' || isUploading || isUploaded || error) && (
+            <div className="mb-3 text-center px-2">
+              {recordingState === 'stopped' && (
+                <div className="bg-korean-brown-light border border-korean-brown-border-alt rounded-lg px-3 py-2">
+                  <div className="text-korean-brown-primary font-medium text-sm">
+                    ✅ 녹음 완료!
+                  </div>
+                </div>
+              )}
+              {isUploading && (
+                <div className="bg-korean-brown-light border border-korean-brown-border-alt rounded-lg px-3 py-2">
+                  <div className="text-korean-brown-primary font-medium text-sm">
+                    📤 업로드 중...
+                  </div>
+                </div>
+              )}
+              {isUploaded && (
+                <div className="bg-korean-brown-light border border-korean-brown-border-alt rounded-lg px-3 py-2">
+                  <div className="text-korean-brown-primary font-medium text-sm">
+                    ✅ 업로드 완료!
+                  </div>
+                </div>
+              )}
+              {error && (
+                <div className="bg-korean-cream border border-red-300 rounded-lg px-3 py-2">
+                  <div className="text-red-600 font-medium text-sm">
+                    ❌ {error}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
-      {/* Next Button */}
-      <div className="px-6 pb-6">
-        <Button
-          variant={isRecommendedTimeReached ? "primary" : "waiting"}
-          onClick={onNext}
-        >
-          다음
-        </Button>
+          {/* Character Image - 컴팩트하게 */}
+          <div className="w-24 h-24 sm:w-32 sm:h-32 mb-3 mx-auto">
+            <img
+              src="/images/call/character-question.png"
+              alt="모아 캐릭터"
+              className="w-full h-full object-contain"
+            />
+          </div>
+
+          {/* Recording Controls - 모바일 최적화 */}
+          <div className="mb-3 flex flex-col items-center gap-2">
+            <Button
+              variant={isRecording ? "danger" : "primary"}
+              onClick={handleRecordingToggle}
+              className="w-full h-14 text-lg font-bold max-w-xs"
+            >
+              {isRecording ? "🛑 녹음 정지" : "🎤 녹음 시작"}
+            </Button>
+            
+            {recordingState === 'stopped' && (
+              <div className="flex flex-col sm:flex-row gap-2 w-full max-w-xs">
+                <Button
+                  variant="secondary"
+                  onClick={resetRecording}
+                  className="flex-1 h-12 text-sm"
+                >
+                  🔄 다시 녹음
+                </Button>
+                
+                {/* 테스트용 다운로드 버튼 */}
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    if (audioBlob) {
+                      const url = URL.createObjectURL(audioBlob);
+                      const link = document.createElement('a');
+                      link.href = url;
+                      link.download = `질문${questionNumber}_녹음.webm`;
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                      URL.revokeObjectURL(url);
+                    }
+                  }}
+                  className="flex-1 h-12 text-sm bg-korean-brown-secondary hover:bg-korean-brown-border text-korean-brown-primary border-korean-brown-border-alt"
+                >
+                  💾 다운로드
+                </Button>
+              </div>
+            )}
+          </div>
+
+          {/* Next Button */}
+          <Button
+            variant={canUpload || isUploaded ? "primary" : "waiting"}
+            onClick={handleUploadAndNext}
+            disabled={isUploading || (!canUpload && !isUploaded)}
+            className="w-full h-14 text-lg font-bold"
+          >
+            {isUploading ? "📤 업로드 중..." : 
+             isUploaded ? "✅ 다음 질문으로" : 
+             "녹음 완료 후 다음"}
+          </Button>
+        </div>
       </div>
     </div>
   );

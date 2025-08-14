@@ -42,32 +42,41 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 w-screen h-21 bg-[#FFFBEE] shadow-[0_2px_14px_0_rgba(0,0,0,0.25)] flex">
-      {tabs.map((tab) => {
-        const Icon = tab.icon;
-        const isActive = activeTab === tab.id;
+    <div className="fixed bottom-0 left-0 right-0 w-full bg-[#FFFBEE] shadow-[0_2px_14px_0_rgba(0,0,0,0.25)] safe-area-bottom">
+      <div className="flex w-full">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
 
-        return (
-          <button
-            key={tab.id}
-            className="flex-1 flex items-center justify-center py-4 px-11 relative"
-            onClick={() => handleTabClick(tab)}
-          >
-            <Icon
-              className={`w-8 h-8 ${
-                isActive ? "text-korean-brown-dark" : "text-korean-brown-border"
-              }`}
-              strokeWidth={isActive ? 2.5 : 2}
-            />
-            {/* Badge for new reports */}
-            {tab.badge && tab.badge > 0 && (
-              <div className="absolute top-2 right-6 bg-[#FF6B6B] text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] h-[18px] flex items-center justify-center">
-                N
-              </div>
-            )}
-          </button>
-        );
-      })}
+          return (
+            <button
+              key={tab.id}
+              className="flex-1 flex flex-col items-center justify-center py-2 px-1 relative min-h-[68px]"
+              onClick={() => handleTabClick(tab)}
+            >
+              <Icon
+                className={`w-6 h-6 mb-1 ${
+                  isActive ? "text-korean-brown-dark" : "text-korean-brown-border"
+                }`}
+                strokeWidth={isActive ? 2.5 : 2}
+              />
+              <span
+                className={`text-xs font-medium ${
+                  isActive ? "text-korean-brown-dark" : "text-korean-brown-border"
+                }`}
+              >
+                {tab.label}
+              </span>
+              {/* Badge for new reports */}
+              {tab.badge && tab.badge > 0 && (
+                <div className="absolute top-1 right-2 bg-[#FF6B6B] text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] h-[18px] flex items-center justify-center">
+                  N
+                </div>
+              )}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };

@@ -4,10 +4,21 @@ import { CallQuestion } from "./CallQuestion";
 import { CallLoading } from "./CallLoading";
 import { CallCompleted } from "./CallCompleted";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 export const Call: React.FC = () => {
   const { state, nextStep, setStep, startTimer } = useCall();
   const { currentStep } = state;
+  const location = useLocation();
+  
+  // URL 파라미터에서 skipIntro 확인하고 첫 번째 질문으로 바로 이동
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    if (searchParams.get('skipIntro') === 'true') {
+      setStep('question1');
+      startTimer();
+    }
+  }, [location.search, setStep, startTimer]);
 
   const questions = [
     "오늘 보살핌 시간 중\n어떤 순간이 가장 기억에 남나요?",
@@ -33,7 +44,28 @@ export const Call: React.FC = () => {
   };
 
   const handleBack = () => {
-    // 이전 단계로 돌아가는 로직 (필요시 구현)
+    const stepOrder: CallStep[] = [
+      "intro",
+      "question1",
+      "question2", 
+      "question3",
+      "loading1",
+      "loading2",
+      "loading3",
+      "loading4",
+      "loading5",
+      "completed",
+    ];
+
+    const currentIndex = stepOrder.indexOf(currentStep);
+    
+    if (currentIndex > 0) {
+      const previousStep = stepOrder[currentIndex - 1];
+      setStep(previousStep);
+    } else {
+      // 첫 번째 단계일 때는 홈으로 이동
+      window.history.back();
+    }
   };
 
   // 로딩 화면들을 자동으로 넘기기

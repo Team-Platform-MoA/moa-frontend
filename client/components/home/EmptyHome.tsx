@@ -1,5 +1,6 @@
 import { Button } from "@/components/korean/Button";
 import { BottomNavigation } from "@/components/korean/BottomNavigation";
+import { Header } from "@/components/korean/Header";
 import { useHome } from "@/hooks/useHome";
 import { useNavigate } from "react-router-dom";
 
@@ -8,7 +9,7 @@ export const EmptyHome: React.FC = () => {
   const navigate = useNavigate();
 
   const handleCallClick = () => {
-    navigate("/call");
+    navigate("/call?skipIntro=true");
   };
 
   const handleDemoData = () => {
@@ -48,7 +49,7 @@ export const EmptyHome: React.FC = () => {
 
         {/* Character and Message Section */}
         <div className="flex flex-col items-center gap-7 mb-15">
-          <p className="text-black text-center font-ownglyph text-2xl font-normal max-w-64">
+          <p className="text-black text-center font-ownglyph text-2xl font-normal max-w-64 bg-[#FDE7BE] rounded-xl px-4 py-3 shadow-sm border border-[#D8C2A1]">
             이야기를 들려주시면
             <br />
             제가 맞춤 감정일기를 써드릴게요!
@@ -65,14 +66,9 @@ export const EmptyHome: React.FC = () => {
         </div>
 
         {/* Call Button */}
-        <div className="w-full max-w-86 px-6 space-y-4">
+        <div className="w-full max-w-86 px-6">
           <Button variant="primary" onClick={handleCallClick}>
             전화 걸기
-          </Button>
-
-          {/* Demo button for testing */}
-          <Button variant="secondary" onClick={handleDemoData}>
-            데모 데이터 보기
           </Button>
         </div>
       </div>

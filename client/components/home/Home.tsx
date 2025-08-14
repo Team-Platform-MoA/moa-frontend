@@ -5,25 +5,38 @@ import { DataHome } from "./DataHome";
 export const Home: React.FC = () => {
   const { homeState } = useHome();
 
-  // Mock data for when consultation records exist
-  const mockTodayStory = {
-    summary: "고생이 많은 하루였던 것 같아요.",
-    score: 65,
+  // Default fallback data when todayStory exists but is incomplete
+  const defaultTodayStory = {
+    summary: "오늘 하루 수고하셨어요.",
+    score: 50,
     emotionalAnalysis: {
-      stress: 45,
-      resilience: 45,
-      emotionalStability: 45,
+      stress: 30,
+      resilience: 60,
+      emotionalStability: 55,
     },
-    moaLetter: `모아의 편지를 써봅시다...
-모아가 친절히 당신의 감정을 분석하여
-하면 좋은 것들을 추천해줍니다...
+    moaLetter: `안녕하세요! 오늘 하루도 고생 많으셨어요.
 
-상세 분석에 대한 이야기와 액션플랜을 넣읍시다`,
+감정 분석 결과를 바탕으로 맞춤형 조언을 드릴게요. 스트레스가 있으시더라도 충분한 휴식을 취하시길 바라며, 작은 성취들도 인정해 주세요.
+
+내일도 좋은 하루 되시기 바랍니다! 💙`,
   };
 
-  if (!homeState.hasConsultationRecords) {
+  // Show EmptyHome when no consultation records exist or todayStory is missing
+  if (!homeState.hasConsultationRecords || !homeState.todayStory) {
     return <EmptyHome />;
   }
 
-  return <DataHome todayStory={homeState.todayStory || mockTodayStory} />;
+  // Validate required fields and use defaults if needed
+  const validatedStory = {
+    summary: homeState.todayStory.summary || defaultTodayStory.summary,
+    score: homeState.todayStory.score ?? defaultTodayStory.score,
+    emotionalAnalysis: {
+      stress: homeState.todayStory.emotionalAnalysis?.stress ?? defaultTodayStory.emotionalAnalysis.stress,
+      resilience: homeState.todayStory.emotionalAnalysis?.resilience ?? defaultTodayStory.emotionalAnalysis.resilience,
+      emotionalStability: homeState.todayStory.emotionalAnalysis?.emotionalStability ?? defaultTodayStory.emotionalAnalysis.emotionalStability,
+    },
+    moaLetter: homeState.todayStory.moaLetter || defaultTodayStory.moaLetter,
+  };
+
+  return <DataHome todayStory={validatedStory} />;
 };

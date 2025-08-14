@@ -2,6 +2,7 @@ import { BottomNavigation } from "@/components/korean/BottomNavigation";
 import { TodaySummary } from "./TodaySummary";
 import { EmotionAnalysis } from "./EmotionAnalysis";
 import { MoaLetter } from "./MoaLetter";
+import { Header } from "../korean/Header";
 
 interface DataHomeProps {
   todayStory: {
@@ -18,7 +19,7 @@ interface DataHomeProps {
 
 export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
   return (
-    <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
+    <div className="w-full h-screen bg-korean-cream flex flex-col overflow-hidden">
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto px-6 pb-28" style={{ paddingTop: '100px' }}>
         {/* Header */}

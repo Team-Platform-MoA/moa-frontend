@@ -6,14 +6,14 @@ export const MoaLetter: React.FC<MoaLetterProps> = ({ content }) => {
   return (
     <div className="w-full bg-[#FDE7BE] rounded-xl p-5 flex flex-col items-center gap-2.5">
       {/* Title */}
-      <h3 className="w-full text-black font-ownglyph text-2xl font-normal tracking-tight">
+      <h3 className="w-full text-black font-ownglyph text-2xl font-normal tracking-tight border-b border-[#D8C2A1] pb-2 mb-1">
         모아의 편지
       </h3>
       
       {/* Letter Content */}
       <div className="w-full h-77 bg-[#FFFCF2] rounded-xl relative">
         {/* Letter text */}
-        <div className="absolute left-2 top-3 w-76 text-black font-ownglyph text-xl font-normal tracking-tight leading-relaxed">
+        <div className="absolute left-2 top-3 w-76 text-black font-ownglyph text-xl font-normal tracking-tight leading-relaxed italic">
           {content}
         </div>
         

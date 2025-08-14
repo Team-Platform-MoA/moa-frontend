@@ -1,5 +1,6 @@
 import { useReport } from "../../hooks/useReport";
 import { ProgressBar } from "../korean/ProgressBar";
+import { Header } from "../korean/Header";
 
 export function ReportList() {
   const { reports, selectReport, markReportAsRead } = useReport();
@@ -25,11 +26,13 @@ export function ReportList() {
   return (
     <div className="flex flex-col min-h-full bg-[#FFFAE7]">
       {/* Header */}
-      <div className="pt-6 pb-4 px-6">
-        <h1 className="text-[32px] font-bold text-black leading-none tracking-[-0.64px] font-['Pretendard']">
-          주간 리포트
-        </h1>
-        <p className="text-[20px] text-black mt-4 font-['Pretendard']">
+      <div className="flex-shrink-0">
+        <Header title="주간 리포트" variant="large" />
+      </div>
+      
+      {/* Subtitle */}
+      <div className="flex-shrink-0 px-4 pb-4">
+        <p className="text-lg text-korean-brown-primary font-pretendard">
           매주 일요일에 생성되는 감정 분석 리포트입니다.
         </p>
       </div>

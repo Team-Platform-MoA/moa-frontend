@@ -5,6 +5,47 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 모바일 최적화 스타일 */
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 모바일 브라우저 UI 숨김 */
+@media screen and (max-width: 768px) {
+  html {
+    height: -webkit-fill-available;
+  }
+  
+  body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+  }
+}
+
+/* 스크롤 방지 */
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+
+/* 안전 영역 지원 */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
 @layer base {
   /**
    * Tailwind CSS theme
