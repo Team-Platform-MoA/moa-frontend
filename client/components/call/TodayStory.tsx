@@ -1,65 +1,59 @@
-import { BottomNavigation } from "@/components/korean/BottomNavigation";
-import { TodaySummary } from "./TodaySummary";
-import { EmotionAnalysis } from "./EmotionAnalysis";
-import { MoaLetter } from "./MoaLetter";
-import { Header } from "../korean/Header";
+import { Header } from "@/components/korean/Header";
+import { Button } from "@/components/korean/Button";
+import { TodayStory as TodayStoryType } from "@/services/api";
+import { useNavigate } from "react-router-dom";
 
-interface DataHomeProps {
-  todayStory: {
-    summary: string;
-    score: number;
-    emotionalAnalysis: {
-      stress: number;
-      resilience: number;
-      emotionalStability: number;
-    };
-    moaLetter: string;
-  };
+interface TodayStoryProps {
+  story: TodayStoryType;
 }
 
-export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
-  const formatDate = (dateString?: string) => {
-    const date = dateString ? new Date(dateString) : new Date();
+export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
+  const navigate = useNavigate();
+
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
-  console.log('DataHome 렌더링 데이터:', todayStory);
+  const handleGoHome = () => {
+    navigate("/home");
+  };
+
+  const handleRetakeCall = () => {
+    // 오늘의 이야기를 삭제하고 새로 상담 시작
+    const confirmed = window.confirm("오늘의 이야기를 삭제하고 새로 상담을 시작하시겠습니까?");
+    if (confirmed) {
+      try {
+        const existingStories = JSON.parse(localStorage.getItem('todayStories') || '[]');
+        const updatedStories = existingStories.filter((s: any) => s.date !== story.date);
+        localStorage.setItem('todayStories', JSON.stringify(updatedStories));
+        
+        // 페이지 새로고침하여 처음부터 시작
+        window.location.reload();
+      } catch (error) {
+        console.error('이야기 삭제 실패:', error);
+      }
+    }
+  };
 
   return (
-    <div className="w-full h-screen bg-[#FFFAE7] flex flex-col overflow-hidden">
-      {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-6 pb-28">
+    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-y-auto">
+      {/* Header */}
+      <Header title="오늘의 이야기" showBackButton={false} />
+
+      <div className="flex-1 px-6 pb-6">
         {/* Title */}
-        <div className="pt-8 pb-4">
+        <div className="pt-8 pb-6">
           <h1 className="text-black font-pretendard text-[32px] font-bold leading-normal tracking-tight">
-            {formatDate()}의 이야기
+            {formatDate(story.date)}의 이야기
           </h1>
-        </div>
-
-        {/* Moa's Letter */}
-        <div className="w-full bg-[#FDE7BE] rounded-xl p-5 mt-4 mb-6 relative">
-          <h3 className="text-black font-ownglyph text-2xl font-normal leading-normal tracking-tight mb-4">
-            모아의 편지
-          </h3>
-
-          <div className="bg-[#FFFCF2] rounded-xl p-3 min-h-[200px] relative">
-            <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line">
-              {todayStory.moaLetter}
-            </p>
-            <p className="text-black font-ownglyph text-xl font-bold leading-normal tracking-tight whitespace-pre-line mt-4">
-              모아가 추천하는 오늘의 조언
-            </p>
-            <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line mt-2">
-              액션 플랜 데이터
-            </p>
-          </div>
         </div>
 
         {/* Emotion Score Section */}
         <div className="w-full bg-[#FFFCF2] rounded-t-xl p-5 relative">
           {/* Emotion Score */}
           <h2 className="text-black font-pretendard text-xl font-bold leading-normal tracking-tight mb-6">
-            {todayStory.summary}
+            {story.title}
           </h2>
 
           {/* Score Display */}
@@ -68,7 +62,7 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
             <div className="relative">
               <div className="w-15 h-[68px] bg-[#DCEAEB] rounded-full flex items-center justify-center">
                 <span className="text-black font-pretendard text-4xl font-medium leading-normal">
-                  {todayStory.score}
+                  {story.emotionScore}
                 </span>
               </div>
             </div>
@@ -80,7 +74,7 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
                 <div
                   className="h-2.5 bg-[#4CC3BE] rounded-full absolute top-0 left-0"
                   style={{
-                    width: `${(todayStory.score / 100) * 100}%`,
+                    width: `${(story.emotionScore / 100) * 100}%`,
                   }}
                 ></div>
               </div>
@@ -120,12 +114,12 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
                   <div
                     className="h-2.5 bg-[#FF6E6E] rounded-full absolute top-0 left-0"
                     style={{
-                      width: `${todayStory.emotionalAnalysis.stress}%`,
+                      width: `${story.emotionalAnalysis.stress}%`,
                     }}
                   ></div>
                 </div>
                 <span className="text-black font-pretendard text-base font-normal leading-normal tracking-tight">
-                  {todayStory.emotionalAnalysis.stress}%
+                  {story.emotionalAnalysis.stress}%
                 </span>
               </div>
             </div>
@@ -146,12 +140,12 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
                   <div
                     className="h-2.5 bg-[#B2E96F] rounded-full absolute top-0 left-0"
                     style={{
-                      width: `${todayStory.emotionalAnalysis.resilience}%`,
+                      width: `${story.emotionalAnalysis.resilience}%`,
                     }}
                   ></div>
                 </div>
                 <span className="text-black font-pretendard text-base font-normal leading-normal tracking-tight">
-                  {todayStory.emotionalAnalysis.resilience}%
+                  {story.emotionalAnalysis.resilience}%
                 </span>
               </div>
             </div>
@@ -172,21 +166,53 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
                   <div
                     className="h-2.5 bg-[#8A50C1] rounded-full absolute top-0 left-0"
                     style={{
-                      width: `${todayStory.emotionalAnalysis.emotionalStability}%`,
+                      width: `${story.emotionalAnalysis.emotionalStability}%`,
                     }}
                   ></div>
                 </div>
                 <span className="text-black font-pretendard text-base font-normal leading-normal tracking-tight">
-                  {todayStory.emotionalAnalysis.emotionalStability}%
+                  {story.emotionalAnalysis.emotionalStability}%
                 </span>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Bottom Navigation */}
-      <BottomNavigation activeTab="home" />
+        {/* Moa's Letter */}
+        <div className="w-full bg-[#FDE7BE] rounded-xl p-5 mt-6 relative">
+          <h3 className="text-black font-ownglyph text-2xl font-normal leading-normal tracking-tight mb-4">
+            모아의 편지
+          </h3>
+
+          <div className="bg-[#FFFCF2] rounded-xl p-3 min-h-[200px] relative">
+            <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line">
+              {story.moaLetter}
+            </p>
+          </div>
+        </div>
+
+        {/* Character Image */}
+        <div className="flex justify-center mt-8">
+          <div className="w-[116px] h-[116px]">
+            <img
+              src="/images/postbox/character-letter.png"
+              alt="모아 캐릭터"
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="mt-8 px-4 space-y-3">
+          <Button variant="primary" onClick={handleGoHome} className="w-full h-14 text-lg font-bold">
+            홈으로 돌아가기
+          </Button>
+          
+          <Button variant="secondary" onClick={handleRetakeCall} className="w-full h-12 text-base">
+            다시 상담하기
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

@@ -3,18 +3,43 @@ import { ProgressBar } from "@/components/korean/ProgressBar";
 import { Button } from "@/components/korean/Button";
 import { useOnboarding } from "@/hooks/useOnboarding";
 import { useNavigate } from "react-router-dom";
+import { submitOnboarding, convertOnboardingStateToRequest } from "@/services/api";
+import { useState } from "react";
 
 export const FinalCompletionStep: React.FC = () => {
   const { state, dispatch } = useOnboarding();
   const { userProfile } = state;
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleComplete = () => {
-    // In a real app, you would save the data here
-    console.log("Onboarding completed:", state);
-    dispatch({ type: "RESET" });
-    navigate("/home");
+  const handleComplete = async () => {
+    setIsLoading(true);
+    
+    try {
+      // 온보딩 데이터를 API 형식으로 변환
+      const requestData = convertOnboardingStateToRequest(state);
+      console.log("온보딩 데이터 전송:", requestData);
+      
+      // API 호출
+      const response = await submitOnboarding(requestData);
+      
+      if (response.success && response.data?.user_id) {
+        console.log("온보딩 완료 성공:", response.data);
+        // user_id를 localStorage에 저장
+        localStorage.setItem('user_id', response.data.user_id);
+        dispatch({ type: "RESET" });
+        navigate("/home");
+      } else {
+        console.error("온보딩 실패:", response.message);
+        alert("온보딩 처리 중 오류가 발생했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("온보딩 처리 오류:", error);
+      alert("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleBack = () => {
@@ -54,8 +79,12 @@ export const FinalCompletionStep: React.FC = () => {
 
       {/* Complete button */}
       <div className="px-6 pb-8">
-        <Button variant="primary" onClick={handleComplete}>
-          완료하기
+        <Button 
+          variant="primary" 
+          onClick={handleComplete}
+          disabled={isLoading}
+        >
+          {isLoading ? "처리 중..." : "완료하기"}
         </Button>
       </div>
     </div>

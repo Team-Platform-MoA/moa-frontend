@@ -1,9 +1,29 @@
 import { useHome } from "@/hooks/useHome";
 import { EmptyHome } from "./EmptyHome";
 import { DataHome } from "./DataHome";
+import { useEffect } from "react";
+import { getTodayStoryFromStorage } from "@/services/api";
 
 export const Home: React.FC = () => {
-  const { homeState } = useHome();
+  const { homeState, setHasConsultationRecords, setTodayStory } = useHome();
+
+  // 홈 컴포넌트 마운트 시 한 번만 localStorage 확인
+  useEffect(() => {
+    const todayStory = getTodayStoryFromStorage();
+    if (todayStory) {
+      setHasConsultationRecords(true);
+      setTodayStory({
+        summary: todayStory.title,
+        score: todayStory.emotionScore,
+        emotionalAnalysis: {
+          stress: todayStory.emotionalAnalysis.stress,
+          resilience: todayStory.emotionalAnalysis.resilience,
+          emotionalStability: todayStory.emotionalAnalysis.emotionalStability,
+        },
+        moaLetter: todayStory.moaLetter,
+      });
+    }
+  }, []); // 빈 배열로 한 번만 실행
 
   // Default fallback data when todayStory exists but is incomplete
   const defaultTodayStory = {
