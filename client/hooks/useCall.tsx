@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 
 export type CallStep =
   | "intro"
@@ -10,7 +10,8 @@ export type CallStep =
   | "loading3"
   | "loading4"
   | "loading5"
-  | "completed";
+  | "completed"
+  | "already_completed";
 
 interface CallState {
   currentStep: CallStep;
@@ -66,7 +67,7 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({
     };
   }, [state.isTimerActive, state.timer]);
 
-  const nextStep = () => {
+  const nextStep = useCallback(() => {
     setState((prev) => {
       const stepOrder: CallStep[] = [
         "intro",
@@ -79,6 +80,7 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({
         "loading4",
         "loading5",
         "completed",
+        "already_completed",
       ];
 
       const currentIndex = stepOrder.indexOf(prev.currentStep);
@@ -110,9 +112,9 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({
 
       return prev;
     });
-  };
+  }, []);
 
-  const startTimer = () => {
+  const startTimer = useCallback(() => {
     setState((prev) => ({
       ...prev,
       timer: 0,
@@ -120,9 +122,9 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({
       canProceed: true,
       isRecommendedTimeReached: false,
     }));
-  };
+  }, []);
 
-  const resetTimer = () => {
+  const resetTimer = useCallback(() => {
     setState((prev) => ({
       ...prev,
       timer: 0,
@@ -130,9 +132,9 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({
       canProceed: true,
       isRecommendedTimeReached: false,
     }));
-  };
+  }, []);
 
-  const setStep = (step: CallStep) => {
+  const setStep = useCallback((step: CallStep) => {
     setState((prev) => ({
       ...prev,
       currentStep: step,
@@ -141,7 +143,7 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({
       canProceed: true,
       isRecommendedTimeReached: false,
     }));
-  };
+  }, []);
 
   return (
     <CallContext.Provider

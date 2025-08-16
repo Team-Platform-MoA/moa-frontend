@@ -9,6 +9,7 @@ interface CallQuestionProps {
   question: string;
   onNext: () => void;
   onBack?: () => void;
+  onComplete?: (data: any) => void;
 }
 
 export const CallQuestion: React.FC<CallQuestionProps> = ({
@@ -16,6 +17,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
   question,
   onNext,
   onBack,
+  onComplete,
 }) => {
   const { state } = useCall();
   const { timer, canProceed, isRecommendedTimeReached } = state;
@@ -57,7 +59,14 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
   const handleUploadAndNext = async () => {
     if (canUpload && audioBlob) {
       try {
-        await uploadAudio(audioBlob, questionNumber);
+        const result = await uploadAudio(audioBlob, questionNumber);
+        
+        // 질문 3 완료 시 onComplete 콜백 호출
+        if (questionNumber === 3 && onComplete && result) {
+          console.log('질문 3 완료, onComplete 콜백 호출:', result);
+          onComplete(result);
+        }
+        
         onNext();
       } catch (error) {
         console.error('Upload failed:', error);
@@ -79,13 +88,13 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
       <div className="flex-1 flex flex-col justify-between px-4 py-2 min-h-0">
         
         {/* Question Section */}
-        <div className="text-center mb-2">
-          <p className="text-black font-['Ownglyph ryuttung'] text-lg sm:text-xl font-normal leading-tight">
+        <div className="text-center mb-2 mt-10">
+          <p className="text-black font-ownglyph text-2xl sm:text-3xl font-normal leading-tight">
             {String(questionNumber).padStart(2, "0")}
             <br />
             {question}
             <br />
-            <span className="text-sm sm:text-base text-korean-brown-secondary">(권장시간 1분)</span>
+            <span className="text-base sm:text-lg text-korean-brown-secondary">(권장시간 1분)</span>
           </p>
         </div>
 
@@ -145,8 +154,8 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
             </div>
           )}
 
-          {/* Character Image - 컴팩트하게 */}
-          <div className="w-24 h-24 sm:w-32 sm:h-32 mb-3 mx-auto">
+          {/* Character Image - 사이즈 키움 */}
+          <div className="w-40 h-40 sm:w-48 sm:h-48 mb-3 mx-auto">
             <img
               src="/images/call/character-question.png"
               alt="모아 캐릭터"
@@ -198,16 +207,27 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
           </div>
 
           {/* Next Button */}
-          <Button
-            variant={canUpload || isUploaded ? "primary" : "waiting"}
-            onClick={handleUploadAndNext}
-            disabled={isUploading || (!canUpload && !isUploaded)}
-            className="w-full h-14 text-lg font-bold"
-          >
-            {isUploading ? "📤 업로드 중..." : 
-             isUploaded ? "✅ 다음 질문으로" : 
-             "녹음 완료 후 다음"}
-          </Button>
+          <div className="flex flex-col gap-2">
+            <Button
+              variant={canUpload || isUploaded ? "primary" : "waiting"}
+              onClick={handleUploadAndNext}
+              disabled={isUploading || (!canUpload && !isUploaded)}
+              className="w-full h-14 text-lg font-bold"
+            >
+              {isUploading ? "📤 업로드 중..." : 
+               isUploaded ? "✅ 다음 질문으로" : 
+               "녹음 완료 후 다음"}
+            </Button>
+            
+            {/* 매직 버튼 - 테스트용 */}
+            <Button
+              variant="secondary"
+              onClick={onNext}
+              className="w-full h-12 text-sm bg-purple-100 hover:bg-purple-200 text-purple-700 border-purple-300"
+            >
+              🪄 매직 버튼 (테스트용)
+            </Button>
+          </div>
         </div>
       </div>
     </div>

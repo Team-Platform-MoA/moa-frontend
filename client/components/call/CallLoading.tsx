@@ -7,25 +7,42 @@ interface CallLoadingProps {
 
 export const CallLoading: React.FC<CallLoadingProps> = ({ message, characterPosition }) => {
   const getCharacterStyle = (position: number) => {
+    // 50px 간격으로 3번째가 화면 중앙에 오도록 조정
+    const spacing = 50;
+    const center = 187.5; // 화면 중앙
+    const thirdPosition = center - 20; // 캐릭터 폭의 절반만큼 빼기
+    
     const positions = [
-      "left-20", // 1st position
-      "left-[207px]", // 2nd position  
-      "left-[165px]", // 3rd position
-      "left-[123px]", // 4th position
-      "left-[249px]", // 5th position
+      `left-[${thirdPosition - spacing * 2}px]`,  // 1st position
+      `left-[${thirdPosition - spacing}px]`,      // 2nd position
+      `left-[${thirdPosition}px]`,                // 3rd position (center)
+      `left-[${thirdPosition + spacing}px]`,      // 4th position
+      `left-[${thirdPosition + spacing * 2}px]`,  // 5th position
     ];
-    return positions[position - 1] || "left-20";
+    return positions[position - 1] || positions[0];
   };
 
-  const getDots = (position: number) => {
-    const dotConfigs = [
-      [163, 205, 247, 289], // 1st: dots at different positions
-      [82, 123, 165, 289],  // 2nd
-      [82, 123, 247, 289],  // 3rd  
-      [82, 205, 247, 289],  // 4th
-      [82, 123, 165, 207],  // 5th
+  const getAllDots = (currentPosition: number) => {
+    // 50px 간격으로 캐릭터 중앙에 맞춰서 dot 위치 계산
+    const spacing = 50;
+    const center = 187.5;
+    
+    const allDotPositions = [
+      center - spacing * 2, // 1st dot
+      center - spacing,     // 2nd dot
+      center,               // 3rd dot (화면 중앙)
+      center + spacing,     // 4th dot
+      center + spacing * 2, // 5th dot
     ];
-    return dotConfigs[position - 1] || dotConfigs[0];
+    
+    // 현재 캐릭터가 있는 위치는 제외하고 dot만 표시
+    const visibleDots = [];
+    for (let i = 0; i < allDotPositions.length; i++) {
+      if (i + 1 !== currentPosition) {
+        visibleDots.push(allDotPositions[i]);
+      }
+    }
+    return visibleDots;
   };
 
   return (
@@ -52,8 +69,8 @@ export const CallLoading: React.FC<CallLoadingProps> = ({ message, characterPosi
       <div className="flex-1 flex flex-col items-center justify-center">
         {/* Character with Dots */}
         <div className="relative w-full mb-12">
-          {/* Character Image */}
-          <div className={`absolute top-[331px - 47px] ${getCharacterStyle(characterPosition)} w-[52px] h-[102px]`}>
+          {/* Character Image - 사이즈 줄임 */}
+          <div className={`absolute top-[284px - 47px] ${getCharacterStyle(characterPosition)} w-[40px] h-[80px]`}>
             <img 
               src="/images/call/character-loading.png" 
               alt="모아 캐릭터" 
@@ -61,19 +78,22 @@ export const CallLoading: React.FC<CallLoadingProps> = ({ message, characterPosi
             />
           </div>
 
-          {/* Loading Dots */}
-          {getDots(characterPosition).map((leftPos, index) => (
+          {/* Loading Dots - 캐릭터 중앙과 높이 맞춰서 표시 */}
+          {getAllDots(characterPosition).map((leftPos, index) => (
             <div 
               key={index}
-              className={`absolute top-[382px - 47px] w-3 h-3 rounded-full bg-[#D2BEA0] animate-pulse`}
-              style={{ left: `${leftPos}px` }}
+              className={`absolute w-3 h-3 rounded-full bg-[#D2BEA0]`}
+              style={{ 
+                left: `${leftPos - 6}px`, // dot 폭의 절반만큼 빼기 (12px/2 = 6px)
+                top: "320px" // 캐릭터 발 부근 고정값
+              }}
             />
           ))}
         </div>
 
         {/* Loading Message */}
         <div className="text-center px-6">
-          <p className="text-black font-['Ownglyph ryuttung'] text-4xl font-normal leading-normal">
+          <p className="text-black font-ownglyph text-4xl font-normal leading-normal">
             {message}
           </p>
         </div>
