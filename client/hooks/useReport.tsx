@@ -122,11 +122,14 @@ export function ReportProvider({ children }: { children: ReactNode }) {
         const weekEnd = new Date(now);
         weekEnd.setDate(now.getDate()); // End of week (Saturday, today is Sunday)
 
+        // 정확한 주차 계산
+        const weekOfYear = Math.ceil((now.getTime() - new Date(now.getFullYear(), 0, 1).getTime()) / (7 * 24 * 60 * 60 * 1000));
+        
         const newReport: WeeklyReport = {
-          id: `2025-w${Math.ceil(now.getDate() / 7)}`,
+          id: `2025-w${weekOfYear}-${now.getTime()}`, // 타임스탬프 추가로 고유성 보장
           weekStart: weekStart.toISOString().split("T")[0],
           weekEnd: weekEnd.toISOString().split("T")[0],
-          title: `${now.getMonth() + 1}월 ${Math.ceil(now.getDate() / 7)}주차 감정 리포트`,
+          title: `${now.getMonth() + 1}월 ${weekOfYear}주차 감정 리포트`,
           emotionScore: Math.floor(Math.random() * 40) + 60, // 60-100
           isNew: true,
           emotionalAnalysis: {

@@ -1,4 +1,4 @@
-import { useCall } from "@/hooks/useCall";
+import { useCall, CallStep } from "@/hooks/useCall";
 import { CallIntro } from "./CallIntro";
 import { CallQuestion } from "./CallQuestion";
 import { CallLoading } from "./CallLoading";
