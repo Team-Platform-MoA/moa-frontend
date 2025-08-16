@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
+import { uploadAudio as uploadAudioAPI } from '@/services/api';
 
 export type RecordingState = 'idle' | 'recording' | 'stopped' | 'uploading' | 'uploaded' | 'error';
 
@@ -139,27 +140,18 @@ export const useAudioRecorder = ({ onRecordingComplete }: UseAudioRecorderProps 
     try {
       setRecordingState('uploading');
       
-      const formData = new FormData();
-      formData.append('audio', audioBlob, `question_${questionNumber}.webm`);
-      formData.append('questionNumber', questionNumber.toString());
-
-      // TODO: 실제 백엔드 API 엔드포인트로 변경
-      const response = await fetch('/api/upload-voice', {
-        method: 'POST',
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error('Upload failed');
+      const result = await uploadAudioAPI(audioBlob, questionNumber);
+      
+      if (result.success) {
+        setRecordingState('uploaded');
+        return result.data;
+      } else {
+        throw new Error(result.message || 'Upload failed');
       }
-
-      const result = await response.json();
-      setRecordingState('uploaded');
-      return result;
 
     } catch (err) {
       console.error('Upload failed:', err);
-      setError('음성 업로드에 실패했습니다.');
+      setError(err instanceof Error ? err.message : '음성 업로드에 실패했습니다.');
       setRecordingState('error');
       throw err;
     }
