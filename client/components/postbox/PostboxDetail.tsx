@@ -30,16 +30,35 @@ export const PostboxDetail: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-y-auto">
+    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-hidden">
       {/* Header */}
       <Header title="모아 우체통" showBackButton={true} onBack={closeLetter} />
 
-      <div className="flex-1 px-6 pb-6">
+      <div className="flex-1 overflow-y-auto px-6 pb-28">
         {/* Title */}
-        <div className="pt-8 pb-6">
+        <div className="pt-8 pb-4">
           <h1 className="text-black font-pretendard text-[32px] font-bold leading-normal tracking-tight">
             {formatDate(selectedLetter.date)}의 이야기
           </h1>
+        </div>
+
+        {/* Moa's Letter */}
+        <div className="w-full bg-[#FDE7BE] rounded-xl p-5 mt-4 mb-6 relative">
+          <h3 className="text-black font-ownglyph text-2xl font-normal leading-normal tracking-tight mb-4">
+            모아의 편지
+          </h3>
+
+          <div className="bg-[#FFFCF2] rounded-xl p-3 min-h-[200px] relative">
+            <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line">
+              {selectedLetter.moaLetter}
+            </p>
+            <p className="text-black font-ownglyph text-xl font-bold leading-normal tracking-tight whitespace-pre-line mt-4">
+              모아가 추천하는 오늘의 조언
+            </p>
+            <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line mt-2">
+              액션 플랜 데이터
+            </p>
+          </div>
         </div>
 
         {/* Emotion Score Section */}
@@ -97,7 +116,7 @@ export const PostboxDetail: React.FC = () => {
                 스트레스
               </div>
               <div className="text-black font-pretendard text-base font-light leading-normal tracking-tight">
-                당신의 이야기 속에서 얼마나 많은 스���레스가
+                당신의 이야기 속에서 얼마나 많은 스트레스가
                 <br />
                 느껴지는 지에 대한 지표예요.
               </div>
@@ -171,29 +190,6 @@ export const PostboxDetail: React.FC = () => {
           </div>
         </div>
 
-        {/* Moa's Letter */}
-        <div className="w-full bg-[#FDE7BE] rounded-xl p-5 mt-6 relative">
-          <h3 className="text-black font-ownglyph text-2xl font-normal leading-normal tracking-tight mb-4">
-            모아의 편지
-          </h3>
-
-          <div className="bg-[#FFFCF2] rounded-xl p-3 min-h-[200px] relative">
-            <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line">
-              {selectedLetter.moaLetter}
-            </p>
-          </div>
-        </div>
-
-        {/* Character Image */}
-        <div className="flex justify-center mt-8">
-          <div className="w-[116px] h-[116px]">
-            <img
-              src="/images/postbox/character-letter.png"
-              alt="모아 캐릭터"
-              className="w-full h-full object-contain"
-            />
-          </div>
-        </div>
       </div>
     </div>
   );

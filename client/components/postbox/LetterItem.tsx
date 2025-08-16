@@ -18,7 +18,7 @@ export const LetterItem: React.FC<LetterItemProps> = ({ letter, onClick }) => {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return `${date.getMonth() + 1}��� ${date.getDate()}일`;
+    return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
   return (

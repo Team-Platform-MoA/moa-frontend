@@ -9,7 +9,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { OnboardingProvider } from "@/hooks/useOnboarding";
 import { HomeProvider } from "@/hooks/useHome";
 import { ReportProvider } from "@/hooks/useReport";
+import { PrologueProvider } from "@/hooks/usePrologue";
 import Index from "./pages/Index";
+import Prologue from "./pages/Prologue";
 import Home from "./pages/Home";
 import Call from "./pages/Call";
 import Postbox from "./pages/Postbox";
@@ -20,27 +22,30 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <OnboardingProvider>
-      <HomeProvider>
-        <ReportProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/home" element={<Home />} />
-                <Route path="/call" element={<Call />} />
-                <Route path="/postbox" element={<Postbox />} />
-                <Route path="/report" element={<Report />} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </ReportProvider>
-      </HomeProvider>
-    </OnboardingProvider>
+    <PrologueProvider>
+      <OnboardingProvider>
+        <HomeProvider>
+          <ReportProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Prologue />} />
+                  <Route path="/onboarding" element={<Index />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/call" element={<Call />} />
+                  <Route path="/postbox" element={<Postbox />} />
+                  <Route path="/report" element={<Report />} />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </BrowserRouter>
+            </TooltipProvider>
+          </ReportProvider>
+        </HomeProvider>
+      </OnboardingProvider>
+    </PrologueProvider>
   </QueryClientProvider>
 );
 
