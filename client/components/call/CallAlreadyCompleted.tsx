@@ -1,18 +1,10 @@
 import { Header } from '@/components/korean/Header';
 import { Button } from '@/components/korean/Button';
+import { BottomNavigation } from '@/components/korean/BottomNavigation';
 import { useNavigate } from 'react-router-dom';
 
 export const CallAlreadyCompleted: React.FC = () => {
   const navigate = useNavigate();
-
-  const handleGoHome = () => {
-    navigate('/home');
-  };
-
-  const handleViewTodayStory = () => {
-    // 홈에서 오늘의 이야기를 볼 수 있도록 홈으로 이동
-    navigate('/home');
-  };
 
   return (
     <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col py-4">
@@ -43,18 +35,10 @@ export const CallAlreadyCompleted: React.FC = () => {
             오늘의 이야기는 홈에서 확인하실 수 있어요
           </p>
         </div>
-
-        {/* Action Buttons */}
-        <div className="w-full max-w-sm space-y-4">
-          <Button
-            variant="primary"
-            onClick={handleGoHome}
-            className="w-full h-14 text-lg font-bold"
-          >
-            홈으로 돌아가기
-          </Button>
-        </div>
       </div>
+
+      {/* Bottom Navigation */}
+      <BottomNavigation activeTab="call" />
     </div>
   );
 };
