@@ -12,7 +12,7 @@ export const CallLoading: React.FC<CallLoadingProps> = ({ message, characterPosi
   };
 
   return (
-    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col py-2">
+    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col py-2 animate-in fade-in duration-300">
 
       {/* Header */}
       <Header title="모아 Call" />

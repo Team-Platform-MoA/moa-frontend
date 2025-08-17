@@ -20,7 +20,7 @@ export const PostboxList: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-[#FFFAE7] flex flex-col overflow-hidden py-2">
+    <div className="w-full h-screen bg-[#FFFAE7] flex flex-col overflow-hidden py-2 animate-in fade-in duration-300">
       {/* Header */}
       <div className="flex-shrink-0">
         <Header title="모아 우체통" variant="large" />
