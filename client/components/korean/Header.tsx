@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
       default:
         return {
           container: "h-12 px-4 py-2",
-          title: "text-lg sm:text-xl font-bold",
+          title: "text-xl sm:text-2xl font-bold",
           button: "w-10 h-10",
           icon: "w-6 h-6",
         };
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({
       
       {/* Center - Title */}
       <div className="flex-1 text-center px-2">
-        <h1 className={`text-korean-brown-primary ${styles.title} tracking-tight font-pretendard truncate`}>
+        <h1 className={`text-black ${styles.title} tracking-tight font-pretendard truncate`}>
           {title}
         </h1>
       </div>
