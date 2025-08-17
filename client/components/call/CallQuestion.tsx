@@ -11,6 +11,7 @@ interface CallQuestionProps {
   onNext: () => void;
   onBack?: () => void;
   onComplete?: (data: any) => void;
+  onUploadStart?: () => void;
 }
 
 export const CallQuestion: React.FC<CallQuestionProps> = ({
@@ -19,6 +20,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
   onNext,
   onBack,
   onComplete,
+  onUploadStart,
 }) => {
   const { state } = useCall();
   const { timer, canProceed, isRecommendedTimeReached } = state;
@@ -49,6 +51,11 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
         console.log('자동 업로드 시작');
         shouldAutoUploadRef.current = false;
         try {
+          // 질문 3 업로드 시작 시 로딩 화면으로 이동
+          if (questionNumber === 3 && onUploadStart) {
+            onUploadStart();
+          }
+
           const result = await uploadAudio(blob, questionNumber);
           console.log('업로드 결과:', result);
 
@@ -56,6 +63,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
           if (questionNumber === 3 && onComplete && result) {
             console.log('질문 3 완료, onComplete 콜백 호출:', result);
             onComplete(result);
+            return; // 질문 3은 onComplete에서 화면 전환 처리
           }
 
           // 업로드 성공 시 useEffect에서 자동으로 다음 질문으로 이동
@@ -106,12 +114,20 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
     // 정지 상태에서 녹음 파일이 있으면 업로드
     if (recordingState === 'stopped' && audioBlob) {
       try {
+        // 질문 3 업로드 시작 시 로딩 화면으로 이동
+        if (questionNumber === 3 && onUploadStart) {
+          onUploadStart();
+        }
+
         const result = await uploadAudio(audioBlob, questionNumber);
 
         // 질문 3 완료 시 onComplete 콜백 호출
         if (questionNumber === 3 && onComplete && result) {
           console.log('질문 3 완료, onComplete 콜백 호출:', result);
           onComplete(result);
+          // 질문 3은 onComplete에서 화면 전환 처리하므로 여기서는 resetRecording만
+          resetRecording();
+          return;
         }
 
         resetRecording();

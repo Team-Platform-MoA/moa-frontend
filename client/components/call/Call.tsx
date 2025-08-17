@@ -90,18 +90,27 @@ export const Call: React.FC = () => {
   const handleQuestion3Complete = (uploadResult: any) => {
     console.log('질문 3 완료 결과:', uploadResult);
     
-    // 로딩 시작 시간 기록
-    setLoadingStartTime(Date.now());
-    
     // 오늘의 이야기 생성
+    console.log('질문 3 완료 결과 전체:', JSON.stringify(uploadResult, null, 2));
     const story = createTodayStory(uploadResult);
     if (story) {
       setTodayStory(story);
       saveTodayStoryToStorage(story);
-      console.log('오늘의 이야기 생성 완료:', story);
+      console.log('오늘의 이야기 생성 완료, 바로 completed로 이동:', story);
+      // 리포트가 도착했으므로 바로 completed로
+      setStep('completed');
     } else {
-      console.log('오늘의 이야기 생성 실패, 데이터 확인 필요:', uploadResult);
+      console.log('오늘의 이야기 생성 실패:', uploadResult);
+      console.log('업로드 결과 타입:', typeof uploadResult);
+      console.log('업로드 결과 키들:', Object.keys(uploadResult || {}));
     }
+  };
+
+  // 질문 3 업로드 시작 시 로딩 화면으로 이동
+  const handleQuestion3UploadStart = () => {
+    console.log('질문 3 업로드 시작, 로딩 화면으로 이동');
+    setLoadingStartTime(Date.now());
+    setStep('loading1');
   };
 
   // 오늘의 이야기가 준비되면 completed로 이동 (최소 10초 후)
@@ -109,7 +118,7 @@ export const Call: React.FC = () => {
     console.log('todayStory useEffect:', { todayStory, currentStep, loadingStartTime });
     if (todayStory && currentStep.startsWith('loading') && loadingStartTime) {
       const elapsedTime = Date.now() - loadingStartTime;
-      const minWaitTime = 10000; // 10초
+      const minWaitTime = 15000; // 15초로 연장
       
       console.log('최소 대기 시간 체크:', { elapsedTime, minWaitTime });
       
@@ -131,14 +140,15 @@ export const Call: React.FC = () => {
     }
   }, [todayStory, currentStep, loadingStartTime, setStep]);
 
-  // 1분 초과 시 오류 처리
+  // 30초 초과 시 오류 처리 (리포트 대기 시간 고려)
   useEffect(() => {
     if (loadingStartTime && currentStep.startsWith('loading')) {
       const timer = setTimeout(() => {
         if (!todayStory) {
+          console.log('30초 경과했지만 리포트가 아직 도착하지 않음');
           setHasError(true);
         }
-      }, 60000); // 1분
+      }, 30000); // 30초로 단축하되 더 여유있게
       
       return () => clearTimeout(timer);
     }
@@ -217,6 +227,7 @@ export const Call: React.FC = () => {
           onNext={handleNext}
           onBack={handleBack}
           onComplete={handleQuestion3Complete}
+          onUploadStart={handleQuestion3UploadStart}
         />
       );
       
