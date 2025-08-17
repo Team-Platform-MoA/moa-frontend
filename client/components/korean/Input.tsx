@@ -5,6 +5,9 @@ interface InputProps {
   value: string;
   onChange: (value: string) => void;
   className?: string;
+  type?: "text" | "tel" | "email" | "number";
+  inputMode?: "text" | "numeric" | "email" | "tel";
+  pattern?: string;
 }
 
 export const Input: React.FC<InputProps> = ({
@@ -12,6 +15,9 @@ export const Input: React.FC<InputProps> = ({
   value,
   onChange,
   className,
+  type = "text",
+  inputMode,
+  pattern,
 }) => {
   const isEmpty = !value.trim();
   const borderColor = isEmpty
@@ -31,7 +37,7 @@ export const Input: React.FC<InputProps> = ({
         )}
       >
         <input
-          type="text"
+          type={type}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
@@ -39,6 +45,8 @@ export const Input: React.FC<InputProps> = ({
           autoCapitalize="off"
           autoCorrect="off"
           spellCheck="false"
+          inputMode={inputMode}
+          pattern={pattern}
           className={cn(
             "flex-1 bg-transparent font-pretendard text-xl font-light tracking-tight outline-none placeholder:text-korean-brown-border touch-manipulation",
             textColor,
