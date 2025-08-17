@@ -1,8 +1,4 @@
-import { BottomNavigation } from "@/components/korean/BottomNavigation";
-import { TodaySummary } from "./TodaySummary";
-import { EmotionAnalysis } from "./EmotionAnalysis";
-import { MoaLetter } from "./MoaLetter";
-import { Header } from "../korean/Header";
+import { BottomNavigation } from '@/components/korean/BottomNavigation';
 
 interface DataHomeProps {
   todayStory: {
@@ -28,7 +24,7 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
   return (
     <div className="w-full h-screen bg-[#FFFAE7] flex flex-col overflow-hidden">
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-6 pb-28">
+      <div className="flex-1 overflow-y-auto px-6 pb-28 py-4">
         {/* Title */}
         <div className="pt-8 pb-4">
           <h1 className="text-black font-pretendard text-[32px] font-bold leading-normal tracking-tight">
@@ -46,51 +42,72 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
             <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line">
               {todayStory.moaLetter}
             </p>
-            <p className="text-black font-ownglyph text-xl font-bold leading-normal tracking-tight whitespace-pre-line mt-4">
-              모아가 추천하는 오늘의 조언
-            </p>
-            <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line mt-2">
-              액션 플랜 데이터
-            </p>
           </div>
         </div>
 
         {/* Emotion Score Section */}
         <div className="w-full bg-[#FFFCF2] rounded-t-xl p-5 relative">
-          {/* Emotion Score */}
-          <h2 className="text-black font-pretendard text-xl font-bold leading-normal tracking-tight mb-6">
+          <h3 className="text-[20px] font-bold text-black mb-6 font-['Pretendard']">
             {todayStory.summary}
-          </h2>
+          </h3>
 
-          {/* Score Display */}
-          <div className="flex items-center gap-4 mb-4">
-            {/* Score Circle */}
+          {/* Score Circle and Progress */}
+          <div className="flex items-center mb-4">
+            {/* Blob background */}
             <div className="relative">
-              <div className="w-15 h-[68px] bg-[#DCEAEB] rounded-full flex items-center justify-center">
-                <span className="text-black font-pretendard text-4xl font-medium leading-normal">
+              <svg
+                width="60"
+                height="68"
+                viewBox="0 0 60 68"
+                fill="none"
+                className="absolute"
+              >
+                <path
+                  fillRule="evenodd"
+                  clipRule="evenodd"
+                  d="M27.2439 0.0623599C41.2201 -0.864778 53.9289 8.6456 58.3322 21.9643C62.812 35.5145 58.0451 50.2685 46.6968 58.9016C34.5208 68.1643 17.075 72.097 5.34526 62.2735C-5.07195 53.5492 2.16781 38.2178 6.68306 25.3906C10.6768 14.0448 15.2598 0.857353 27.2439 0.0623599Z"
+                  fill="#DCEAEB"
+                />
+              </svg>
+              <div className="relative z-10 w-[60px] h-[68px] flex items-center justify-center">
+                <span className="text-[36px] font-medium text-black font-['Pretendard']">
                   {todayStory.score}
                 </span>
               </div>
             </div>
 
             {/* Progress Bar */}
-            <div className="flex-1 flex items-center gap-2">
-              <div className="flex-1 relative">
-                <div className="w-full h-2.5 bg-[#D9EEF0] rounded-full"></div>
-                <div
-                  className="h-2.5 bg-[#4CC3BE] rounded-full absolute top-0 left-0"
+            <div className="ml-8 flex-1">
+              <div className="relative">
+                <div className="w-full h-[9px] bg-[#D9EEF0] rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#4CC3BE] rounded-full transition-all duration-300"
+                    style={{
+                      width: `${todayStory.score}%`,
+                    }}
+                  />
+                </div>
+                {/* Bird on progress bar */}
+                <img
+                  src="/images/postbox/bird-small.png"
+                  alt="새"
+                  className="absolute top-[-24px] w-6 h-6 object-contain transition-all duration-300"
                   style={{
-                    width: `${(todayStory.score / 100) * 100}%`,
+                    left: `calc(${todayStory.score}% - 12px)`,
                   }}
-                ></div>
+                />
               </div>
-
-              {/* Happy Face */}
-              <div className="w-5 h-5">
+              {/* Happy/Sad faces */}
+              <div className="flex justify-between mt-2">
+                <img
+                  src="/images/postbox/bad.png"
+                  alt="슬픈 얼굴"
+                  className="w-3 h-3 object-contain"
+                />
                 <img
                   src="/images/postbox/character-letter.png"
                   alt="행복한 얼굴"
-                  className="w-full h-full object-contain"
+                  className="w-3 h-3 object-contain"
                 />
               </div>
             </div>
@@ -99,84 +116,87 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
 
         {/* Detailed Analysis */}
         <div className="w-full bg-[#FFFCF2] rounded-b-xl p-5">
-          <h3 className="text-black font-pretendard text-xl font-bold leading-normal tracking-tight mb-5">
+          <h3 className="text-[20px] font-bold text-black mb-6 font-['Pretendard']">
             감정점수 상세 분석
           </h3>
 
-          <div className="space-y-[18px]">
+          <div className="space-y-6">
             {/* Stress */}
-            <div className="space-y-1">
-              <div className="text-black font-pretendard text-base font-semibold leading-normal tracking-tight">
+            <div className="space-y-2">
+              <h4 className="text-[16px] font-bold text-black font-['Pretendard']">
                 스트레스
-              </div>
-              <div className="text-black font-pretendard text-base font-light leading-normal tracking-tight">
+              </h4>
+              <p className="text-[16px] text-black font-['Pretendard'] leading-normal">
                 당신의 이야기 속에서 얼마나 많은 스트레스가
                 <br />
                 느껴지는 지에 대한 지표예요.
-              </div>
+              </p>
               <div className="flex items-center justify-between">
-                <div className="flex-1 relative mr-4">
-                  <div className="w-full h-2.5 bg-[#FFDBDB] rounded-full"></div>
-                  <div
-                    className="h-2.5 bg-[#FF6E6E] rounded-full absolute top-0 left-0"
-                    style={{
-                      width: `${todayStory.emotionalAnalysis.stress}%`,
-                    }}
-                  ></div>
+                <div className="flex-1 mr-4">
+                  <div className="w-full h-[9px] bg-[#FFDBDB] rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-[#FF6E6E] rounded-full transition-all duration-300"
+                      style={{
+                        width: `${todayStory.emotionalAnalysis.stress}%`,
+                      }}
+                    />
+                  </div>
                 </div>
-                <span className="text-black font-pretendard text-base font-normal leading-normal tracking-tight">
+                <span className="text-[16px] text-black font-['Pretendard']">
                   {todayStory.emotionalAnalysis.stress}%
                 </span>
               </div>
             </div>
 
             {/* Resilience */}
-            <div className="space-y-1">
-              <div className="text-black font-pretendard text-base font-semibold leading-normal tracking-tight">
+            <div className="space-y-2">
+              <h4 className="text-[16px] font-bold text-black font-['Pretendard']">
                 회복 탄력성
-              </div>
-              <div className="text-black font-pretendard text-base font-light leading-normal tracking-tight">
+              </h4>
+              <p className="text-[16px] text-black font-['Pretendard'] leading-normal">
                 마주한 사건에 대해 긍정적으로 극복하며 도약의
                 <br />
                 발판으로 삼을 수 있는 마음 가짐을 의미해요.
-              </div>
+              </p>
               <div className="flex items-center justify-between">
-                <div className="flex-1 relative mr-4">
-                  <div className="w-full h-2.5 bg-[#E1F7BE] rounded-full"></div>
-                  <div
-                    className="h-2.5 bg-[#B2E96F] rounded-full absolute top-0 left-0"
-                    style={{
-                      width: `${todayStory.emotionalAnalysis.resilience}%`,
-                    }}
-                  ></div>
+                <div className="flex-1 mr-4">
+                  <div className="w-full h-[9px] bg-[#E1F7BE] rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-[#B2E96F] rounded-full transition-all duration-300"
+                      style={{
+                        width: `${todayStory.emotionalAnalysis.resilience}%`,
+                      }}
+                    />
+                  </div>
                 </div>
-                <span className="text-black font-pretendard text-base font-normal leading-normal tracking-tight">
+                <span className="text-[16px] text-black font-['Pretendard']">
                   {todayStory.emotionalAnalysis.resilience}%
                 </span>
               </div>
             </div>
 
             {/* Emotional Stability */}
-            <div className="space-y-1">
-              <div className="text-black font-pretendard text-base font-semibold leading-normal tracking-tight">
+            <div className="space-y-2">
+              <h4 className="text-[16px] font-bold text-black font-['Pretendard']">
                 정서 안정
-              </div>
-              <div className="text-black font-pretendard text-base font-light leading-normal tracking-tight">
+              </h4>
+              <p className="text-[16px] text-black font-['Pretendard'] leading-normal">
                 당신이 얼마나 차분하고
                 <br />
                 안정 되었는지에 대한 지표예요.
-              </div>
+              </p>
               <div className="flex items-center justify-between">
-                <div className="flex-1 relative mr-4">
-                  <div className="w-full h-2.5 bg-[#EAE3ED] rounded-full"></div>
-                  <div
-                    className="h-2.5 bg-[#8A50C1] rounded-full absolute top-0 left-0"
-                    style={{
-                      width: `${todayStory.emotionalAnalysis.emotionalStability}%`,
-                    }}
-                  ></div>
+                <div className="flex-1 mr-4">
+                  <div className="w-full h-[9px] bg-[#EAE3ED] rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-[#8A50C1] rounded-full transition-all duration-300"
+                      style={{
+                        width: `${todayStory.emotionalAnalysis.emotionalStability}%`,
+                      }}
+                    />
+                  </div>
                 </div>
-                <span className="text-black font-pretendard text-base font-normal leading-normal tracking-tight">
+                <span className="text-[16px] text-black font-['Pretendard']">
                   {todayStory.emotionalAnalysis.emotionalStability}%
                 </span>
               </div>
