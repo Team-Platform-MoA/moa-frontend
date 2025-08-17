@@ -1,5 +1,5 @@
-import { useReport } from "../../hooks/useReport";
-import { Header } from "../korean/Header";
+import { useReport } from '../../hooks/useReport';
+import { Header } from '../korean/Header';
 
 export function ReportList() {
   const { reports, selectReport, markReportAsRead } = useReport();
@@ -25,14 +25,14 @@ export function ReportList() {
   return (
     <div className="flex flex-col min-h-full bg-[#FFFAE7]">
       {/* Header */}
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0 py-2 bg-[#FFFAE7]">
         <Header title="주간 리포트" variant="large" />
       </div>
-      
+
       {/* Subtitle */}
       <div className="flex-shrink-0 px-4 pb-4">
         <p className="text-lg text-korean-brown-primary font-pretendard">
-          매주 일요일에 생성되는 감정 분석 리포트입니다.
+          매주 일요일에 생성되는 감정 분석 리포트예요.
         </p>
       </div>
 
