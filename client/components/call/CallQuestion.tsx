@@ -284,13 +284,13 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
             </Button>
 
             {/* 매직 버튼 - 테스트용 */}
-            <Button
+            {/* <Button
               variant="secondary"
               onClick={onNext}
               className="w-full h-12 text-sm bg-purple-100 hover:bg-purple-200 text-purple-700 border-purple-300"
             >
               🪄 매직 버튼 (테스트용)
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>
