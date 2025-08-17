@@ -1,5 +1,5 @@
-import { useReport } from "../../hooks/useReport";
-import { ChevronLeft } from "lucide-react";
+import { useReport } from '../../hooks/useReport';
+import { Header } from '../korean/Header';
 
 export function ReportDetail() {
   const { selectedReport, goBackToList } = useReport();
@@ -20,25 +20,13 @@ export function ReportDetail() {
   };
 
   return (
-    <div className="flex flex-col min-h-full bg-[#FFFAE7]">
+    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-hidden py-4 animate-in fade-in slide-in-from-right duration-300">
       {/* Header */}
-      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-        <button
-          onClick={goBackToList}
-          className="flex items-center justify-center w-6 h-6"
-        >
-          <ChevronLeft size={24} color="black" />
-        </button>
-        <h1 className="text-[20px] font-bold text-black font-['Pretendard']">
-          주간 리포트
-        </h1>
-        <div className="w-6 h-6" />
-      </div>
+      <Header title="주간 리포트" showBackButton={true} onBack={goBackToList} />
 
-      {/* Content */}
-      <div className="flex-1 pb-6">
+      <div className="flex-1 overflow-y-auto px-6 pb-28">
         {/* Title */}
-        <div className="px-6 pt-6 pb-4">
+        <div className="pt-8 pb-4">
           <h2 className="text-[32px] font-bold text-black leading-none tracking-[-0.64px] font-['Pretendard']">
             {selectedReport.title}
           </h2>
@@ -48,7 +36,7 @@ export function ReportDetail() {
         </div>
 
         {/* Overall Score Card */}
-        <div className="mx-6 mb-6 bg-[#FFFCF2] rounded-t-xl p-5">
+        <div className="w-full mb-6 bg-[#FFFCF2] rounded-t-xl p-5">
           <h3 className="text-[20px] font-bold text-black mb-6 font-['Pretendard']">
             종합 감정 점수
           </h3>
@@ -98,7 +86,7 @@ export function ReportDetail() {
         </div>
 
         {/* Detailed Analysis */}
-        <div className="mx-6 bg-[#FFFCF2] rounded-b-xl p-5">
+        <div className="w-full bg-[#FFFCF2] rounded-b-xl p-5">
           <h3 className="text-[20px] font-bold text-black mb-6 font-['Pretendard']">
             감정점수 상세 분석
           </h3>
@@ -188,7 +176,7 @@ export function ReportDetail() {
         </div>
 
         {/* AI Letter */}
-        <div className="mx-6 mt-6 bg-[#FDE7BE] rounded-xl p-5">
+        <div className="w-full mt-6 bg-[#FDE7BE] rounded-xl p-5">
           <h3 className="text-[24px] font-['Ownglyph_ryuttung'] text-black mb-4 leading-none tracking-[-0.48px]">
             모아의 편지
           </h3>
