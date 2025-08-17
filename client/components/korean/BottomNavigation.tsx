@@ -51,7 +51,7 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
           return (
             <button
               key={tab.id}
-              className="flex-1 flex flex-col items-center justify-center py-2 px-1 relative min-h-[68px]"
+              className="flex-1 flex flex-col items-center justify-center py-3 px-1 relative min-h-[80px]"
               onClick={() => handleTabClick(tab)}
             >
               <Icon
@@ -68,9 +68,9 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
                 {tab.label}
               </span>
               {/* Badge for new reports */}
-              {tab.badge && tab.badge > 0 && (
+              {tab.badge !== undefined && tab.badge > 0 && (
                 <div className="absolute top-1 right-2 bg-[#FF6B6B] text-white text-xs font-bold px-1.5 py-0.5 rounded-full min-w-[18px] h-[18px] flex items-center justify-center">
-                  N
+                  {tab.badge}
                 </div>
               )}
             </button>
