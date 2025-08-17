@@ -1,5 +1,4 @@
 import { useReport } from "../../hooks/useReport";
-import { ProgressBar } from "../korean/ProgressBar";
 import { Header } from "../korean/Header";
 
 export function ReportList() {
@@ -79,11 +78,14 @@ export function ReportList() {
                   <div className="text-[14px] text-gray-600 mb-1 font-['Pretendard']">
                     이번 주 종합 감정 점수
                   </div>
-                  <ProgressBar
-                    progress={report.emotionScore}
-                    color="#4CC3BE"
-                    backgroundColor="#D9EEF0"
-                  />
+                  <div className="w-full h-[9px] bg-[#D9EEF0] rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-[#4CC3BE] rounded-full transition-all duration-300"
+                      style={{
+                        width: `${report.emotionScore}%`,
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
 

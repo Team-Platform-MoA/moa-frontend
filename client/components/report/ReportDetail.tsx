@@ -1,5 +1,4 @@
 import { useReport } from "../../hooks/useReport";
-import { ProgressBar } from "../korean/ProgressBar";
 import { ChevronLeft } from "lucide-react";
 
 export function ReportDetail() {
@@ -81,12 +80,14 @@ export function ReportDetail() {
 
             {/* Progress Bar */}
             <div className="ml-8 flex-1">
-              <ProgressBar
-                progress={selectedReport.emotionScore}
-                color="#4CC3BE"
-                backgroundColor="#D9EEF0"
-                height={9}
-              />
+              <div className="w-full h-[9px] bg-[#D9EEF0] rounded-full overflow-hidden">
+                <div
+                  className="h-full bg-[#4CC3BE] rounded-full transition-all duration-300"
+                  style={{
+                    width: `${selectedReport.emotionScore}%`,
+                  }}
+                />
+              </div>
               {/* Happy/Sad faces */}
               <div className="flex justify-between mt-2">
                 <span className="text-[12px]">😢</span>

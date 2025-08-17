@@ -94,11 +94,22 @@ export const PostboxDetail: React.FC = () => {
 
             {/* Progress Bar */}
             <div className="ml-8 flex-1">
-              <div className="w-full h-[9px] bg-[#D9EEF0] rounded-full overflow-hidden">
-                <div
-                  className="h-full bg-[#4CC3BE] rounded-full transition-all duration-300"
+              <div className="relative">
+                <div className="w-full h-[9px] bg-[#D9EEF0] rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-[#4CC3BE] rounded-full transition-all duration-300"
+                    style={{
+                      width: `${selectedLetter.emotionScore}%`,
+                    }}
+                  />
+                </div>
+                {/* Bird on progress bar */}
+                <img
+                  src="/images/postbox/bird-small.png"
+                  alt="새"
+                  className="absolute top-[-24px] w-6 h-6 object-contain transition-all duration-300"
                   style={{
-                    width: `${selectedLetter.emotionScore}%`,
+                    left: `calc(${selectedLetter.emotionScore}% - 12px)`,
                   }}
                 />
               </div>
