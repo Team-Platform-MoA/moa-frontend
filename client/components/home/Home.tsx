@@ -1,62 +1,81 @@
-import { useHome } from "@/hooks/useHome";
 import { EmptyHome } from "./EmptyHome";
 import { DataHome } from "./DataHome";
-import { useEffect } from "react";
-import { getTodayStoryFromStorage } from "@/services/api";
+import { useEffect, useState } from "react";
+import { fetchTodayReport, TodayStory } from "@/services/api";
 
 export const Home: React.FC = () => {
-  const { homeState, setHasConsultationRecords, setTodayStory } = useHome();
+  const [todayStory, setTodayStory] = useState<TodayStory | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // 홈 컴포넌트 마운트 시 한 번만 localStorage 확인
+  // 홈 컴포넌트 마운트 시 API에서 오늘의 리포트 확인
   useEffect(() => {
-    const todayStory = getTodayStoryFromStorage();
-    if (todayStory) {
-      setHasConsultationRecords(true);
-      setTodayStory({
-        summary: todayStory.title,
-        score: todayStory.emotionScore,
-        emotionalAnalysis: {
-          stress: todayStory.emotionalAnalysis.stress,
-          resilience: todayStory.emotionalAnalysis.resilience,
-          emotionalStability: todayStory.emotionalAnalysis.emotionalStability,
-        },
-        moaLetter: todayStory.moaLetter,
-      });
-    }
-  }, []); // 빈 배열로 한 번만 실행
+    const checkTodayStory = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+        
+        // API에서 오늘의 리포트 조회 (실시간 데이터)
+        console.log('API에서 오늘의 리포트 조회 시작');
+        const apiStory = await fetchTodayReport();
+        
+        if (apiStory) {
+          console.log('API에서 오늘의 리포트 발견:', apiStory);
+          setTodayStory(apiStory);
+          // API에서 가져온 데이터를 localStorage에도 저장
+          // saveTodayStoryToStorage(apiStory);
+        } else {
+          console.log('오늘의 리포트가 없습니다.');
+          setTodayStory(null);
+        }
+      } catch (err) {
+        console.error('오늘의 리포트 조회 중 오류:', err);
+        setError(err instanceof Error ? err.message : '알 수 없는 오류가 발생했습니다.');
+        setTodayStory(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  // Default fallback data when todayStory exists but is incomplete
-  const defaultTodayStory = {
-    summary: "오늘 하루 수고하셨어요.",
-    score: 50,
-    emotionalAnalysis: {
-      stress: 30,
-      resilience: 60,
-      emotionalStability: 55,
-    },
-    moaLetter: `안녕하세요! 오늘 하루도 고생 많으셨어요.
+    checkTodayStory();
+  }, []);
 
-감정 분석 결과를 바탕으로 맞춤형 조언을 드릴게요. 스트레스가 있으시더라도 충분한 휴식을 취하시길 바라며, 작은 성취들도 인정해 주세요.
+  // 로딩 중일 때
+  if (isLoading) {
+    return (
+      <div className="w-full h-screen bg-[#FFFAE7] flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-black font-pretendard text-lg">로딩 중...</div>
+          <div className="text-black font-pretendard text-sm mt-2">오늘의 이야기를 확인하고 있어요</div>
+        </div>
+      </div>
+    );
+  }
 
-내일도 좋은 하루 되시기 바랍니다! 💙`,
-  };
+  // 오류가 발생했을 때
+  if (error) {
+    console.log('오류 발생:', error);
+    return <EmptyHome />; // 오류 시에도 기본 홈 화면 표시
+  }
 
-  // Show EmptyHome when no consultation records exist or todayStory is missing
-  if (!homeState.hasConsultationRecords || !homeState.todayStory) {
+  // 실제 데이터가 없으면 EmptyHome 표시
+  if (!todayStory) {
+    console.log('오늘의 이야기가 없어서 EmptyHome 표시');
     return <EmptyHome />;
   }
 
-  // Validate required fields and use defaults if needed
-  const validatedStory = {
-    summary: homeState.todayStory.summary || defaultTodayStory.summary,
-    score: homeState.todayStory.score ?? defaultTodayStory.score,
+  // 실제 데이터가 있으면 DataHome 표시
+  console.log('오늘의 이야기가 있어서 DataHome 표시:', todayStory);
+  const storyData = {
+    summary: todayStory.title,
+    score: todayStory.emotionScore,
     emotionalAnalysis: {
-      stress: homeState.todayStory.emotionalAnalysis?.stress ?? defaultTodayStory.emotionalAnalysis.stress,
-      resilience: homeState.todayStory.emotionalAnalysis?.resilience ?? defaultTodayStory.emotionalAnalysis.resilience,
-      emotionalStability: homeState.todayStory.emotionalAnalysis?.emotionalStability ?? defaultTodayStory.emotionalAnalysis.emotionalStability,
+      stress: todayStory.emotionalAnalysis.stress,
+      resilience: todayStory.emotionalAnalysis.resilience,
+      emotionalStability: todayStory.emotionalAnalysis.emotionalStability,
     },
-    moaLetter: homeState.todayStory.moaLetter || defaultTodayStory.moaLetter,
+    moaLetter: todayStory.moaLetter,
   };
 
-  return <DataHome todayStory={validatedStory} />;
+  return <DataHome todayStory={storyData} />;
 };

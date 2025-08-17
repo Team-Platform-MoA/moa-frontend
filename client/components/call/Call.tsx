@@ -8,7 +8,7 @@ import { CallError } from "./CallError";
 import { CallAlreadyCompleted } from "./CallAlreadyCompleted";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { fetchQuestion, TodayStory as TodayStoryType, createTodayStory, saveTodayStoryToStorage, getTodayStoryFromStorage } from "@/services/api";
+import { fetchQuestion, TodayStory as TodayStoryType, createTodayStory, saveTodayStoryToStorage, fetchTodayReport } from "@/services/api";
 
 export const Call: React.FC = () => {
   const { state, nextStep, setStep, startTimer } = useCall();
@@ -24,14 +24,27 @@ export const Call: React.FC = () => {
   const [hasError, setHasError] = useState(false);
   const [waitingForResponse, setWaitingForResponse] = useState(false);
   
-  // 컴포넌트 진입 시 오늘의 이야기 확인 - Call 페이지에서는 이미 완료 메시지 표시
+  // 컴포넌트 진입 시 오늘의 이야기 확인 - API에서 실시간 데이터 조회
   useEffect(() => {
-    const existingTodayStory = getTodayStoryFromStorage();
-    if (existingTodayStory) {
-      console.log('오늘의 이야기가 이미 존재함, 이미 완료 상태로 설정:', existingTodayStory);
-      setTodayStory(existingTodayStory);
-      setStep('already_completed'); // 새로운 상태 추가
-    }
+    const checkTodayStory = async () => {
+      try {
+        console.log('Call 페이지: API에서 오늘의 이야기 확인 시작');
+        const apiStory = await fetchTodayReport();
+        
+        if (apiStory) {
+          console.log('Call 페이지: 오늘의 이야기가 이미 존재함, 이미 완료 상태로 설정:', apiStory);
+          setTodayStory(apiStory);
+          setStep('already_completed');
+        } else {
+          console.log('Call 페이지: 오늘의 이야기가 없음, 새로운 Call 가능');
+        }
+      } catch (error) {
+        console.error('Call 페이지: 오늘의 이야기 확인 중 오류:', error);
+        // 오류 시에는 새로운 Call 진행 가능하도록 함
+      }
+    };
+
+    checkTodayStory();
   }, [setStep]);
   
   // 질문들을 API에서 불러오기

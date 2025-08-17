@@ -1,7 +1,7 @@
-import { Header } from "@/components/korean/Header";
-import { Button } from "@/components/korean/Button";
-import { TodayStory as TodayStoryType } from "@/services/api";
-import { useNavigate } from "react-router-dom";
+import { Header } from '@/components/korean/Header';
+import { Button } from '@/components/korean/Button';
+import { TodayStory as TodayStoryType } from '@/services/api';
+import { useNavigate } from 'react-router-dom';
 
 interface TodayStoryProps {
   story: TodayStoryType;
@@ -16,18 +16,24 @@ export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
   };
 
   const handleGoHome = () => {
-    navigate("/home");
+    navigate('/home');
   };
 
   const handleRetakeCall = () => {
     // 오늘의 이야기를 삭제하고 새로 상담 시작
-    const confirmed = window.confirm("오늘의 이야기를 삭제하고 새로 상담을 시작하시겠습니까?");
+    const confirmed = window.confirm(
+      '오늘의 이야기를 삭제하고 새로 상담을 시작하시겠습니까?',
+    );
     if (confirmed) {
       try {
-        const existingStories = JSON.parse(localStorage.getItem('todayStories') || '[]');
-        const updatedStories = existingStories.filter((s: any) => s.date !== story.date);
+        const existingStories = JSON.parse(
+          localStorage.getItem('todayStories') || '[]',
+        );
+        const updatedStories = existingStories.filter(
+          (s: any) => s.date !== story.date,
+        );
         localStorage.setItem('todayStories', JSON.stringify(updatedStories));
-        
+
         // 페이지 새로고침하여 처음부터 시작
         window.location.reload();
       } catch (error) {
@@ -223,12 +229,12 @@ export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
 
         {/* Action Buttons */}
         <div className="mt-8 px-4 space-y-3">
-          <Button variant="primary" onClick={handleGoHome} className="w-full h-14 text-lg font-bold">
+          <Button
+            variant="primary"
+            onClick={handleGoHome}
+            className="w-full h-14 text-lg font-bold"
+          >
             홈으로 돌아가기
-          </Button>
-          
-          <Button variant="secondary" onClick={handleRetakeCall} className="w-full h-12 text-base">
-            다시 상담하기
           </Button>
         </div>
       </div>
