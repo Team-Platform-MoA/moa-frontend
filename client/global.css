@@ -1,12 +1,20 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css");
-@import url("https://fonts.googleapis.com/css2?family=Ownglyph+Ryuttung&display=swap");
+@font-face {
+  font-family: "Ownglyph Ryuttung";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2405-2@1.0/Ownglyph_ryuttung-Rg.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* 모바일 최적화 스타일 */
-html, body {
+html,
+body {
   width: 100%;
   height: 100%;
   overflow-x: hidden;
@@ -20,7 +28,7 @@ html, body {
   html {
     height: -webkit-fill-available;
   }
-  
+
   body {
     min-height: 100vh;
     min-height: -webkit-fill-available;
@@ -40,7 +48,7 @@ html, body {
     padding-left: max(0px, env(safe-area-inset-left));
     padding-right: max(0px, env(safe-area-inset-right));
   }
-  
+
   .safe-area-bottom {
     padding-bottom: max(0px, env(safe-area-inset-bottom));
   }
