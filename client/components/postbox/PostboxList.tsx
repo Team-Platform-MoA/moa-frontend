@@ -1,8 +1,8 @@
-import { Header } from "@/components/korean/Header";
-import { BottomNavigation } from "@/components/korean/BottomNavigation";
-import { usePostbox } from "@/hooks/usePostbox";
-import { LetterItem } from "./LetterItem";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Header } from '@/components/korean/Header';
+import { BottomNavigation } from '@/components/korean/BottomNavigation';
+import { usePostbox } from '@/hooks/usePostbox';
+import { LetterItem } from './LetterItem';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export const PostboxList: React.FC = () => {
   const {
@@ -20,7 +20,7 @@ export const PostboxList: React.FC = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-[#FFFAE7] flex flex-col overflow-hidden">
+    <div className="w-full h-screen bg-[#FFFAE7] flex flex-col overflow-hidden py-2">
       {/* Header */}
       <div className="flex-shrink-0">
         <Header title="모아 우체통" variant="large" />
@@ -28,12 +28,11 @@ export const PostboxList: React.FC = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col px-4 py-2 min-h-0">
-
         {/* Month Navigation */}
         <div className="flex-shrink-0 mb-4">
-          <div className="flex items-center justify-between bg-korean-cream rounded-lg p-3 border border-korean-brown-border">
-            <button 
-              onClick={goToPreviousMonth} 
+          <div className="flex items-center justify-between bg-korean-cream rounded-lg p-3">
+            <button
+              onClick={goToPreviousMonth}
               className="p-2 rounded-lg hover:bg-korean-brown-light transition-colors"
               aria-label="이전 달"
             >
@@ -42,8 +41,8 @@ export const PostboxList: React.FC = () => {
             <h2 className="text-korean-brown-primary font-pretendard text-lg font-bold leading-normal tracking-tight">
               {currentYear}년 {getMonthName(currentMonth)}
             </h2>
-            <button 
-              onClick={goToNextMonth} 
+            <button
+              onClick={goToNextMonth}
               className="p-2 rounded-lg hover:bg-korean-brown-light transition-colors"
               aria-label="다음 달"
             >
@@ -53,7 +52,7 @@ export const PostboxList: React.FC = () => {
         </div>
 
         {/* Letters Count */}
-        <div className="px-6 pb-4">
+        <div className="pb-4">
           <p className="text-black font-pretendard text-xl font-normal leading-normal tracking-tight">
             총 <span className="font-bold">{currentMonthLetters.length}통</span>
             의 이야기가 있어요.
@@ -61,8 +60,8 @@ export const PostboxList: React.FC = () => {
         </div>
 
         {/* Letters Grid */}
-        <div className="flex-1 px-6 pb-6">
-          <div className="grid grid-cols-3 gap-0 w-full max-w-[345px]">
+        <div className="flex-1 overflow-y-auto px-2">
+          <div className="grid grid-cols-3 gap-4 w-full max-w-md mx-auto pb-6">
             {currentMonthLetters.map((letter) => (
               <LetterItem
                 key={letter.id}

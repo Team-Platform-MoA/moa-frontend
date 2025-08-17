@@ -1,5 +1,5 @@
-import { Header } from "@/components/korean/Header";
-import { usePostbox } from "@/hooks/usePostbox";
+import { Header } from '@/components/korean/Header';
+import { usePostbox } from '@/hooks/usePostbox';
 
 export const PostboxDetail: React.FC = () => {
   const { state, closeLetter } = usePostbox();
@@ -15,22 +15,22 @@ export const PostboxDetail: React.FC = () => {
   };
 
   const getProgressBarColor = (
-    type: "stress" | "resilience" | "emotionalStability",
+    type: 'stress' | 'resilience' | 'emotionalStability',
   ) => {
     switch (type) {
-      case "stress":
-        return { bg: "#FFDBDB", fill: "#FF6E6E" };
-      case "resilience":
-        return { bg: "#E1F7BE", fill: "#B2E96F" };
-      case "emotionalStability":
-        return { bg: "#EAE3ED", fill: "#8A50C1" };
+      case 'stress':
+        return { bg: '#FFDBDB', fill: '#FF6E6E' };
+      case 'resilience':
+        return { bg: '#E1F7BE', fill: '#B2E96F' };
+      case 'emotionalStability':
+        return { bg: '#EAE3ED', fill: '#8A50C1' };
       default:
-        return { bg: "#D9EEF0", fill: "#4CC3BE" };
+        return { bg: '#D9EEF0', fill: '#4CC3BE' };
     }
   };
 
   return (
-    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-hidden">
+    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-hidden py-4">
       {/* Header */}
       <Header title="모아 우체통" showBackButton={true} onBack={closeLetter} />
 
@@ -189,7 +189,6 @@ export const PostboxDetail: React.FC = () => {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

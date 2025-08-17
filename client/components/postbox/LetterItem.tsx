@@ -24,10 +24,10 @@ export const LetterItem: React.FC<LetterItemProps> = ({ letter, onClick }) => {
   return (
     <button
       onClick={() => onClick(letter)}
-      className="flex flex-col items-center gap-0.5 w-[115px] h-[100px] p-0 px-4"
+      className="flex flex-col items-center gap-1 w-full aspect-[1.1/1] p-1 border-none"
     >
       {/* Letter Image */}
-      <div className="w-[98px] h-[78px] flex-shrink-0">
+      <div className="w-full h-5/6 flex-shrink-0">
         <img
           src={getLetterImagePath(letter.letterStyle)}
           alt={`${formatDate(letter.date)} 편지`}
@@ -36,7 +36,7 @@ export const LetterItem: React.FC<LetterItemProps> = ({ letter, onClick }) => {
       </div>
 
       {/* Date */}
-      <div className="text-black text-center font-pretendard text-sm font-normal leading-normal tracking-tight">
+      <div className="text-black text-center font-pretendard text-base sm:text-lg md:text-xl font-normal leading-tight tracking-tight">
         {formatDate(letter.date)}
       </div>
     </button>
