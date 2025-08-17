@@ -353,7 +353,35 @@ export interface ReportDetailResponse {
   [key: string]: any;
 }
 
-// 리포트 목록 조회 API
+// 특정 년월의 리포트 목록 조회 API (우체통용)
+export const fetchReportsForMonth = async (year: number, month: number): Promise<ReportListResponse> => {
+  try {
+    const userId = localStorage.getItem('user_id');
+    if (!userId) {
+      throw new Error('사용자 ID가 없습니다. 다시 온보딩을 진행해주세요.');
+    }
+
+    const response = await fetch(`${API_BASE_URL}/api/reports?year=${year}&month=${month}`, {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+        'X-User-Id': userId,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`리포트 목록 조회 실패: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('리포트 목록 조회 오류:', error);
+    throw error;
+  }
+};
+
+// 현재 년월의 리포트 목록 조회 API
 export const fetchReportsList = async (): Promise<ReportListResponse> => {
   try {
     const userId = localStorage.getItem('user_id');
