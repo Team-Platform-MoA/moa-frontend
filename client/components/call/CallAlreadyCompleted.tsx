@@ -1,21 +1,21 @@
-import { Header } from "@/components/korean/Header";
-import { Button } from "@/components/korean/Button";
-import { useNavigate } from "react-router-dom";
+import { Header } from '@/components/korean/Header';
+import { Button } from '@/components/korean/Button';
+import { useNavigate } from 'react-router-dom';
 
 export const CallAlreadyCompleted: React.FC = () => {
   const navigate = useNavigate();
 
   const handleGoHome = () => {
-    navigate("/home");
+    navigate('/home');
   };
 
   const handleViewTodayStory = () => {
     // 홈에서 오늘의 이야기를 볼 수 있도록 홈으로 이동
-    navigate("/home");
+    navigate('/home');
   };
 
   return (
-    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col">
+    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col py-4">
       {/* Header */}
       <Header title="모아 Call" showBackButton={false} />
 
@@ -46,18 +46,10 @@ export const CallAlreadyCompleted: React.FC = () => {
 
         {/* Action Buttons */}
         <div className="w-full max-w-sm space-y-4">
-          <Button 
-            variant="primary" 
-            onClick={handleViewTodayStory}
-            className="w-full h-14 text-lg font-bold"
-          >
-            오늘의 이야기 보러가기
-          </Button>
-          
-          <Button 
-            variant="secondary" 
+          <Button
+            variant="primary"
             onClick={handleGoHome}
-            className="w-full h-12 text-base"
+            className="w-full h-14 text-lg font-bold"
           >
             홈으로 돌아가기
           </Button>
