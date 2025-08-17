@@ -12,7 +12,7 @@ export const PostboxList: React.FC = () => {
     selectLetter,
     getLettersForCurrentMonth,
   } = usePostbox();
-  const { currentYear, currentMonth, isLoading, error } = state;
+  const { currentYear, currentMonth, isLoading, error, totalCount } = state;
   const currentMonthLetters = getLettersForCurrentMonth();
 
   console.log('PostboxList 상태:', {
@@ -20,7 +20,8 @@ export const PostboxList: React.FC = () => {
     currentMonth,
     isLoading,
     error,
-    lettersCount: currentMonthLetters.length,
+    totalCount,
+    lettersLoaded: currentMonthLetters.length,
     letters: currentMonthLetters,
   });
 
@@ -63,7 +64,7 @@ export const PostboxList: React.FC = () => {
         {/* Letters Count */}
         <div className="pb-4">
           <p className="text-black font-pretendard text-xl font-normal leading-normal tracking-tight">
-            총 <span className="font-bold">{currentMonthLetters.length}통</span>
+            총 <span className="font-bold">{totalCount}통</span>
             의 이야기가 있어요.
           </p>
         </div>
@@ -90,7 +91,7 @@ export const PostboxList: React.FC = () => {
                 </p>
               </div>
             </div>
-          ) : currentMonthLetters.length === 0 ? (
+          ) : totalCount === 0 ? (
             <div className="flex items-center justify-center h-full">
               <div className="text-center px-8">
                 <div className="mb-6">

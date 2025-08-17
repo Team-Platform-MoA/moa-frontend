@@ -1,4 +1,4 @@
-import { Letter } from "@/hooks/usePostbox";
+import { Letter } from '@/hooks/usePostbox';
 
 interface LetterItemProps {
   letter: Letter;
@@ -6,19 +6,19 @@ interface LetterItemProps {
 }
 
 export const LetterItem: React.FC<LetterItemProps> = ({ letter, onClick }) => {
-  const getLetterImagePath = (style: Letter["letterStyle"]) => {
+  const getLetterImagePath = (style: Letter['letterStyle']) => {
     const styleMap = {
-      envelope1: "envelope1.png",
-      envelope2: "envelope2.png",
-      envelope3: "envelope3.png",
-      envelope4: "envelope4.png",
+      envelope1: 'envelope1.png',
+      envelope2: 'envelope2.png',
+      envelope3: 'envelope3.png',
+      envelope4: 'envelope4.png',
     };
     return `/images/postbox/${styleMap[style]}`;
   };
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+    // API에서 이미 "8월 17일" 형식으로 오므로 그대로 반환
+    return dateString;
   };
 
   return (
