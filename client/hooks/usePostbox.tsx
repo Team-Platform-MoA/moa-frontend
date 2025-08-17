@@ -13,6 +13,7 @@ export interface Letter {
   };
   dailySummary: string;
   moaLetter: string;
+  actions: string;
   letterStyle: 'envelope1' | 'envelope2' | 'envelope3' | 'envelope4';
 }
 
@@ -23,6 +24,7 @@ interface PostboxState {
   selectedLetter: Letter | null;
   isLoading: boolean;
   error: string | null;
+  totalCount: number;
 }
 
 interface PostboxContextType {
@@ -49,6 +51,7 @@ export const PostboxProvider: React.FC<{ children: React.ReactNode }> = ({
     selectedLetter: null,
     isLoading: false,
     error: null,
+    totalCount: 0,
   });
 
   // API에서 해당 년월의 리포트 데이터를 가져오는 함수
@@ -70,7 +73,7 @@ export const PostboxProvider: React.FC<{ children: React.ReactNode }> = ({
           // API 데이터를 Letter 형식으로 변환
           const letter: Letter = {
             id: report.report_id,
-            date: `${year}-${String(month).padStart(2, '0')}-${report.report_date.replace(/[월일]/g, '').split(' ').join('').padStart(2, '0')}`, // "8월 17일" -> "2025-08-17"
+            date: report.report_date, // "8월 17일" 그대로 사용
             title: reportDetail.daily_summary,
             emotionScore: reportDetail.emotion_score,
             emotionalAnalysis: {
@@ -80,6 +83,7 @@ export const PostboxProvider: React.FC<{ children: React.ReactNode }> = ({
             },
             dailySummary: reportDetail.daily_summary,
             moaLetter: reportDetail.letter,
+            actions: reportDetail.actions,
             letterStyle: (['envelope1', 'envelope2', 'envelope3', 'envelope4'] as const)[Math.floor(Math.random() * 4)],
           };
           
@@ -89,10 +93,11 @@ export const PostboxProvider: React.FC<{ children: React.ReactNode }> = ({
         }
       }
 
-      console.log(`우체통: ${year}년 ${month}월 편지 ${letters.length}개 로드 완료`);
+      console.log(`우체통: ${year}년 ${month}월 편지 ${letters.length}개 로드 완료 (총 ${reportsResponse.total_count}개)`);
       setState(prev => ({ 
         ...prev, 
         letters,
+        totalCount: reportsResponse.total_count,
         isLoading: false,
         error: null 
       }));
@@ -102,6 +107,7 @@ export const PostboxProvider: React.FC<{ children: React.ReactNode }> = ({
       setState(prev => ({ 
         ...prev, 
         letters: [],
+        totalCount: 0,
         isLoading: false,
         error: error instanceof Error ? error.message : '알 수 없는 오류가 발생했습니다.' 
       }));
@@ -158,13 +164,8 @@ export const PostboxProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const getLettersForCurrentMonth = () => {
-    return state.letters.filter((letter) => {
-      const letterDate = new Date(letter.date);
-      return (
-        letterDate.getFullYear() === state.currentYear &&
-        letterDate.getMonth() + 1 === state.currentMonth
-      );
-    });
+    // API에서 이미 해당 월의 데이터만 가져오므로 필터링 불필요
+    return state.letters;
   };
 
   return (

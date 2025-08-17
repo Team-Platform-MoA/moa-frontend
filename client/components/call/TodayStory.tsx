@@ -65,6 +65,17 @@ export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
             <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line">
               {story.moaLetter}
             </p>
+            
+            {story.actions && (
+              <>
+                <p className="text-black font-ownglyph text-xl font-bold leading-normal tracking-tight whitespace-pre-line mt-4">
+                  모아가 추천하는 오늘의 조언
+                </p>
+                <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line mt-2">
+                  {story.actions}
+                </p>
+              </>
+            )}
           </div>
         </div>
 

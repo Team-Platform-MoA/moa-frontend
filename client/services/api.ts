@@ -166,6 +166,7 @@ export interface TodayStory {
     emotionalStability: number;
   };
   moaLetter: string;
+  actions?: string;
   conversationId: string;
 }
 
@@ -206,6 +207,7 @@ export const createTodayStory = (response: any): TodayStory | null => {
         emotionalStability: reportData.emotion_analysis.stability,
       },
       moaLetter: reportData.letter,
+      actions: reportData.actions,
       conversationId: data.conversation_id,
     };
   }
@@ -236,6 +238,7 @@ export const createTodayStory = (response: any): TodayStory | null => {
         emotionalStability: reportData.emotion_analysis.stability,
       },
       moaLetter: reportData.letter,
+      actions: reportData.actions,
       conversationId: response.conversation_id,
     };
   }
@@ -350,6 +353,7 @@ export interface ReportDetailResponse {
     stability: number;
   };
   letter: string;
+  actions: string;
   [key: string]: any;
 }
 
@@ -486,6 +490,7 @@ export const fetchTodayReport = async (): Promise<TodayStory | null> => {
         emotionalStability: reportDetail.emotion_analysis.stability,
       },
       moaLetter: reportDetail.letter,
+      actions: reportDetail.actions,
       conversationId: reportDetail.report_id,
     };
 

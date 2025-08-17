@@ -10,8 +10,8 @@ export const PostboxDetail: React.FC = () => {
   }
 
   const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+    // API에서 이미 "8월 17일" 형식으로 오므로 그대로 반환
+    return dateString;
   };
 
   const getProgressBarColor = (
@@ -52,12 +52,17 @@ export const PostboxDetail: React.FC = () => {
             <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line">
               {selectedLetter.moaLetter}
             </p>
-            <p className="text-black font-ownglyph text-xl font-bold leading-normal tracking-tight whitespace-pre-line mt-4">
-              모아가 추천하는 오늘의 조언
-            </p>
-            <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line mt-2">
-              액션 플랜 데이터
-            </p>
+            
+            {selectedLetter.actions && (
+              <>
+                <p className="text-black font-ownglyph text-xl font-bold leading-normal tracking-tight whitespace-pre-line mt-4">
+                  모아가 추천하는 오늘의 조언
+                </p>
+                <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line mt-2">
+                  {selectedLetter.actions}
+                </p>
+              </>
+            )}
           </div>
         </div>
 

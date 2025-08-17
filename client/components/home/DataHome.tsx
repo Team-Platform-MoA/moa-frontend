@@ -10,6 +10,7 @@ interface DataHomeProps {
       emotionalStability: number;
     };
     moaLetter: string;
+    actions?: string;
   };
 }
 
@@ -42,6 +43,17 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
             <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line">
               {todayStory.moaLetter}
             </p>
+            
+            {todayStory.actions && (
+              <>
+                <p className="text-black font-ownglyph text-xl font-bold leading-normal tracking-tight whitespace-pre-line mt-4">
+                  모아가 추천하는 오늘의 조언
+                </p>
+                <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line mt-2">
+                  {todayStory.actions}
+                </p>
+              </>
+            )}
           </div>
         </div>
 

@@ -75,6 +75,7 @@ export const Home: React.FC = () => {
       emotionalStability: todayStory.emotionalAnalysis.emotionalStability,
     },
     moaLetter: todayStory.moaLetter,
+    actions: todayStory.actions,
   };
 
   return <DataHome todayStory={storyData} />;
