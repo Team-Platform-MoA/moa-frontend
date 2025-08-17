@@ -1,6 +1,5 @@
 import { Button } from "@/components/korean/Button";
 import { BottomNavigation } from "@/components/korean/BottomNavigation";
-import { Header } from "@/components/korean/Header";
 import { useHome } from "@/hooks/useHome";
 import { useNavigate } from "react-router-dom";
 
@@ -34,9 +33,9 @@ export const EmptyHome: React.FC = () => {
   return (
     <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
       {/* Main Content */}
-      <div className="flex-1 flex flex-col items-center px-8 gap-12" style={{ paddingTop: '100px' }}>
-        {/* Header Section - 위쪽에 배치 */}
-        <div className="w-full max-w-82 flex flex-col gap-3 pt-4 h-40">
+      <div className="flex-1 flex flex-col justify-between px-8 py-8 min-h-0 overflow-auto">
+        {/* Header Section */}
+        <div className="w-full max-w-82 flex flex-col gap-3">
           <h1 className="text-black font-pretendard text-[32px] font-bold tracking-tight">
             오늘의 이야기
           </h1>
@@ -47,32 +46,29 @@ export const EmptyHome: React.FC = () => {
           </p>
         </div>
 
-        {/* 아래쪽 고정 영역 - Character, Message, Button */}
-        <div className="flex flex-col items-center">
-          {/* Character and Message Section */}
-          <div className="flex flex-col items-center gap-7 mb-15">
-            <p className="text-black text-center font-ownglyph text-2xl font-normal max-w-64 bg-[#FDE7BE] rounded-xl px-4 py-3 shadow-sm border border-[#D8C2A1]">
-              이야기를 들려주시면
-              <br />
-              제가 맞춤 감정일기를 써드릴게요!
-            </p>
-            
-            {/* Character Image */}
-            <div className="relative">
-              <img
-                src="/images/character-empty.png"
-                alt="모아 캐릭터 - 빈 상태"
-                className="w-55 h-55 object-contain"
-              />
-            </div>
-          </div>
+        {/* Character and Message Section */}
+        <div className="flex flex-col items-center gap-7">
+          <p className="text-black text-center font-ownglyph text-2xl font-normal max-w-100 bg-[#FDE7BE] rounded-xl px-4 py-3 shadow-sm border border-[#D8C2A1]">
+            함께 감정을 돌아보고
+            <br />
+            위로 편지를 전달해드릴게요 :)
+          </p>
 
-          {/* Call Button */}
-          <div className="w-full max-w-86 px-6">
-            <Button variant="primary" onClick={handleCallClick}>
-              전화 걸기
-            </Button>
+          {/* Character Image */}
+          <div className="relative">
+            <img
+              src="/images/character-empty.png"
+              alt="모아 캐릭터 - 빈 상태"
+              className="w-55 h-55 object-contain"
+            />
           </div>
+        </div>
+
+        {/* Call Button */}
+        <div className="px-6 pb-20">
+          <Button variant="primary" onClick={handleCallClick}>
+            전화 걸기
+          </Button>
         </div>
       </div>
 
