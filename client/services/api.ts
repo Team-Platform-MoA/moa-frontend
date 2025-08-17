@@ -422,24 +422,26 @@ export const fetchReportDetail = async (
 // 오늘 날짜의 리포트 조회
 export const fetchTodayReport = async (): Promise<TodayStory | null> => {
   try {
-    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD 형식
-    console.log('오늘 날짜:', today);
+    const now = new Date();
+    const today = now.toISOString().split('T')[0]; // YYYY-MM-DD 형식
+    const todayMonthDay = `${now.getMonth() + 1}월 ${now.getDate()}일`; // MM월 DD일 형식
+    console.log('오늘 날짜:', today, '비교용 형식:', todayMonthDay);
 
     // 리포트 목록 조회
     const reportsList = await fetchReportsList();
     console.log('리포트 목록:', reportsList);
 
-    // 오늘 날짜와 일치하는 리포트 찾기
+    // 오늘 날짜와 일치하는 리포트 찾기 (MM월 DD일 형식으로 비교)
     const todayReport = reportsList.reports.find(
-      (report) => report.report_date === today,
+      (report) => report.report_date === todayMonthDay,
     );
 
     if (!todayReport) {
-      console.log('오늘 날짜의 리포트가 없습니다.');
+      console.log('오늘 날짜의 리포트가 없습니다. 찾는 형식:', todayMonthDay);
       return null;
     }
 
-    console.log('오늘의 리포트 ID:', todayReport.report_id);
+    console.log('오늘의 리포트 발견! ID:', todayReport.report_id, 'Date:', todayReport.report_date);
 
     // 해당 리포트 상세 정보 조회
     const reportDetail = await fetchReportDetail(todayReport.report_id);
