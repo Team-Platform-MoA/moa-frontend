@@ -27,7 +27,7 @@ export const UserCareHoursStep: React.FC = () => {
   return (
     <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
       {/* Header */}
-      <div className="pt-12 pb-6">
+      <div className="pt-6 pb-6">
         <Header title="내 프로필 설정" showBackButton onBack={handleBack} />
       </div>
 
@@ -53,7 +53,7 @@ export const UserCareHoursStep: React.FC = () => {
       {/* Input */}
       <div className="pb-8">
         <Input
-          placeholder="숫자만 작성해주세요. ex)12"
+          placeholder="숫자만 작성해주세요. 예시: 12"
           value={userProfile.careHours}
           onChange={(value) =>
             dispatch({

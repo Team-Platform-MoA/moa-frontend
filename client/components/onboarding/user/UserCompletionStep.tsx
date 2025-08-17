@@ -19,7 +19,7 @@ export const UserCompletionStep: React.FC = () => {
   return (
     <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
       {/* Header */}
-      <div className="pt-12 pb-6">
+      <div className="pt-6 pb-6">
         <Header title="내 프로필 설정" showBackButton onBack={handleBack} />
       </div>
 

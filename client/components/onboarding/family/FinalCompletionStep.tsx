@@ -3,7 +3,10 @@ import { ProgressBar } from "@/components/korean/ProgressBar";
 import { Button } from "@/components/korean/Button";
 import { useOnboarding } from "@/hooks/useOnboarding";
 import { useNavigate } from "react-router-dom";
-import { submitOnboarding, convertOnboardingStateToRequest } from "@/services/api";
+import {
+  submitOnboarding,
+  convertOnboardingStateToRequest,
+} from "@/services/api";
 import { useState } from "react";
 
 export const FinalCompletionStep: React.FC = () => {
@@ -15,19 +18,19 @@ export const FinalCompletionStep: React.FC = () => {
 
   const handleComplete = async () => {
     setIsLoading(true);
-    
+
     try {
       // 온보딩 데이터를 API 형식으로 변환
       const requestData = convertOnboardingStateToRequest(state);
       console.log("온보딩 데이터 전송:", requestData);
-      
+
       // API 호출
       const response = await submitOnboarding(requestData);
-      
+
       if (response.success && response.data?.user_id) {
         console.log("온보딩 완료 성공:", response.data);
         // user_id를 localStorage에 저장
-        localStorage.setItem('user_id', response.data.user_id);
+        localStorage.setItem("user_id", response.data.user_id);
         dispatch({ type: "RESET" });
         navigate("/home");
       } else {
@@ -49,7 +52,7 @@ export const FinalCompletionStep: React.FC = () => {
   return (
     <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
       {/* Header */}
-      <div className="pt-12 pb-6">
+      <div className="pt-6 pb-6">
         <Header title="가족 프로필 설정" showBackButton onBack={handleBack} />
       </div>
 
@@ -67,23 +70,23 @@ export const FinalCompletionStep: React.FC = () => {
             <br />
             이제 제가 {userProfile.name}님께 맞는
             <br />
-            케어와 ~~를 해드릴게요.
+            마음 케어를 시작해드릴게요.
           </h2>
         </div>
 
-        {/* Placeholder for image - using a simple colored circle */}
-        <div className="w-60 h-60 bg-korean-brown-secondary rounded-full mb-12 flex items-center justify-center">
-          <div className="w-32 h-32 bg-korean-brown-primary rounded-full"></div>
+        {/* Character Image */}
+        <div className="mb-12">
+          <img
+            src="/images/call/character-completed.png"
+            alt="완료된 모아 캐릭터"
+            className="w-60 h-60 object-contain"
+          />
         </div>
       </div>
 
       {/* Complete button */}
       <div className="px-6 pb-8">
-        <Button 
-          variant="primary" 
-          onClick={handleComplete}
-          disabled={isLoading}
-        >
+        <Button variant="primary" onClick={handleComplete} disabled={isLoading}>
           {isLoading ? "처리 중..." : "완료하기"}
         </Button>
       </div>

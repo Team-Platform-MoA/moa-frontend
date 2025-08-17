@@ -19,7 +19,7 @@ export const UserNameStep: React.FC = () => {
   return (
     <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
       {/* Header */}
-      <div className="pt-12 pb-6">
+      <div className="pt-6 pb-6">
         <Header title="내 프로필 설정" />
       </div>
 
@@ -45,7 +45,7 @@ export const UserNameStep: React.FC = () => {
       {/* Input */}
       <div className="pb-8">
         <Input
-          placeholder="Placeholder"
+          placeholder="예시: 모아"
           value={userProfile.name}
           onChange={(value) =>
             dispatch({

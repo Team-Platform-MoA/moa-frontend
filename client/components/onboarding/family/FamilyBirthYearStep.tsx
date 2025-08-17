@@ -27,7 +27,7 @@ export const FamilyBirthYearStep: React.FC = () => {
   return (
     <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
       {/* Header */}
-      <div className="pt-12 pb-6">
+      <div className="pt-6 pb-6">
         <Header title="가족 프로필 설정" showBackButton onBack={handleBack} />
       </div>
 
@@ -53,7 +53,10 @@ export const FamilyBirthYearStep: React.FC = () => {
       {/* Input */}
       <div className="pb-8">
         <Input
-          placeholder="4자리로 입력해주세요. ex)1970"
+          type="tel"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          placeholder="4자리로 입력해주세요. 예시: 1970"
           value={familyProfile.birthYear}
           onChange={(value) =>
             dispatch({
