@@ -274,7 +274,8 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
               }
               onClick={handleUploadAndNext}
               disabled={isUploading}
-              className="w-full h-14 text-lg font-bold"
+              className="w-full h-14 text-lg font-bold touch-manipulation select-none"
+              style={{ touchAction: 'manipulation' }}
             >
               {(() => {
                 if (isUploading) return '업로드 중...';
