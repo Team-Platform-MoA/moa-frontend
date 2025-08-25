@@ -17,10 +17,7 @@ export const FinalCompletionStep: React.FC = () => {
   const navigate = useNavigate();
 
   const handleComplete = async () => {
-    console.log('[모바일 디버그] 완료하기 버튼 클릭됨, isLoading:', isLoading);
-
     if (isLoading) {
-      console.log('[모바일 디버그] 이미 로딩 중, 중복 실행 방지');
       return;
     }
 
@@ -29,24 +26,23 @@ export const FinalCompletionStep: React.FC = () => {
     try {
       // 온보딩 데이터를 API 형식으로 변환
       const requestData = convertOnboardingStateToRequest(state);
-      console.log('[모바일 디버그] 온보딩 데이터 전송:', requestData);
+      console.log('온보딩 데이터 전송:', requestData);
 
       // API 호출
       const response = await submitOnboarding(requestData);
-      console.log('[모바일 디버그] API 응답:', response);
 
       if (response.success && response.data?.user_id) {
-        console.log('[모바일 디버그] 온보딩 완료 성공:', response.data);
+        console.log('온보딩 완료 성공:', response.data);
         // user_id를 localStorage에 저장
         localStorage.setItem('user_id', response.data.user_id);
         dispatch({ type: 'RESET' });
         navigate('/home');
       } else {
-        console.error('[모바일 디버그] 온보딩 실패:', response.message);
+        console.error('온보딩 실패:', response.message);
         alert('온보딩 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
       }
     } catch (error) {
-      console.error('[모바일 디버그] 온보딩 처리 오류:', error);
+      console.error('온보딩 처리 오류:', error);
       alert('네트워크 오류가 발생했습니다. 다시 시도해주세요.');
     } finally {
       setIsLoading(false);
@@ -95,10 +91,7 @@ export const FinalCompletionStep: React.FC = () => {
           <div className="w-full pb-16 flex-shrink-0">
             <Button
               variant="primary"
-              onClick={() => {
-                console.log('[모바일 디버그] 버튼 onClick 이벤트 발생');
-                handleComplete();
-              }}
+              onClick={handleComplete}
               disabled={isLoading}
               className="touch-manipulation select-none cursor-pointer active:scale-95 transition-transform"
               style={{
