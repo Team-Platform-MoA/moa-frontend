@@ -2,7 +2,7 @@ import { Button } from '@/components/korean/Button';
 import { Header } from '@/components/korean/Header';
 import { useCall } from '@/hooks/useCall';
 import { useAudioRecorder } from '@/hooks/useAudioRecorder';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import { Mic, Square, RotateCcw, Play } from 'lucide-react';
 
 interface CallQuestionProps {
@@ -66,7 +66,11 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
             return; // 질문 3은 onComplete에서 화면 전환 처리
           }
 
-          // 업로드 성공 시 useEffect에서 자동으로 다음 질문으로 이동
+          // 질문 1, 2인 경우 다음 질문으로 이동
+          if (questionNumber === 1 || questionNumber === 2) {
+            resetRecording();
+            onNext();
+          }
         } catch (error) {
           console.error('자동 업로드 실패:', error);
         }
@@ -124,21 +128,16 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
           return;
         }
 
-        onNext();
+        // 질문 1, 2인 경우 다음 질문으로 이동
+        if (questionNumber === 1 || questionNumber === 2) {
+          resetRecording();
+          onNext();
+        }
       } catch (error) {
         console.error('Upload failed:', error);
       }
     }
   };
-
-  // 업로드 완료 시 자동으로 다음 질문으로 이동 - 질문 1, 2만
-  useEffect(() => {
-    // 질문 1, 2에서만 자동 이동 (질문 3은 onComplete에서 처리)
-    if (isUploaded && (questionNumber === 1 || questionNumber === 2)) {
-      resetRecording(); // 먼저 상태를 리셋해서 무한 루프 방지
-      onNext();
-    }
-  }, [isUploaded, questionNumber, onNext, resetRecording]);
 
   return (
     <div className="w-full h-dvh bg-[#FFFAE7] flex flex-col py-2 pb-safe-bottom">
@@ -249,7 +248,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
           </div>
 
           {/* Next Button */}
-          <div className="flex flex-col gap-2 pb-4">
+          <div className="flex flex-col pb-4">
             <Button
               variant={
                 canUpload ||
@@ -262,12 +261,12 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
               onClick={handleUploadAndNext}
               disabled={isUploading}
               className="w-full h-14 text-lg font-bold touch-manipulation select-none cursor-pointer active:scale-95 transition-transform"
-              style={{ 
+              style={{
                 touchAction: 'manipulation',
                 userSelect: 'none',
                 WebkitUserSelect: 'none',
                 WebkitTouchCallout: 'none',
-                WebkitTapHighlightColor: 'transparent'
+                WebkitTapHighlightColor: 'transparent',
               }}
             >
               {(() => {
