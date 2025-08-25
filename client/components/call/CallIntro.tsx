@@ -7,7 +7,7 @@ interface CallIntroProps {
 
 export const CallIntro: React.FC<CallIntroProps> = ({ onStartCall }) => {
   return (
-    <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
+    <div className="w-screen h-dvh bg-korean-cream flex flex-col fixed inset-0 pb-safe-bottom">
       {/* Main Content */}
       <div className="flex-1 flex flex-col justify-between px-8 py-8 min-h-0 overflow-auto">
         {/* Header Section */}
@@ -43,8 +43,8 @@ export const CallIntro: React.FC<CallIntroProps> = ({ onStartCall }) => {
         </div>
 
         {/* Call Button */}
-        <div className="px-6 pb-20">
-          <Button variant="primary" onClick={onStartCall}>
+        <div className="px-6 pb-20 pb-safe-bottom">
+          <Button variant="primary" onClick={onStartCall} className="touch-manipulation select-none">
             전화 걸기
           </Button>
         </div>

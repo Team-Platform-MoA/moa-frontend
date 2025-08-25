@@ -20,7 +20,7 @@ export function ReportDetail() {
   };
 
   return (
-    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-hidden py-4 animate-in fade-in slide-in-from-right duration-300">
+    <div className="w-screen h-dvh fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-hidden py-4 animate-in fade-in slide-in-from-right duration-300 pb-safe-bottom">
       {/* Header */}
       <Header title="주간 리포트" showBackButton={true} onBack={goBackToList} />
 

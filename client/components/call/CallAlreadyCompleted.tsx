@@ -7,7 +7,7 @@ export const CallAlreadyCompleted: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col py-4">
+    <div className="w-screen h-dvh fixed inset-0 bg-[#FFFAE7] flex flex-col py-4 pb-safe-bottom">
       {/* Header */}
       <Header title="모아 Call" showBackButton={false} />
 

@@ -15,7 +15,7 @@ export const CallError: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col">
+    <div className="w-screen h-dvh fixed inset-0 bg-[#FFFAE7] flex flex-col pb-safe-bottom">
       {/* Header */}
       <Header title="모아 Call" showBackButton={false} />
 
@@ -56,6 +56,7 @@ export const CallError: React.FC = () => {
           <Button 
             variant="primary" 
             onClick={handleRetry}
+            className="touch-manipulation select-none"
             className="w-full h-14 text-lg font-bold"
           >
             다시 시도하기
@@ -64,6 +65,7 @@ export const CallError: React.FC = () => {
           <Button 
             variant="secondary" 
             onClick={handleGoHome}
+            className="touch-manipulation select-none"
             className="w-full h-12 text-base"
           >
             홈으로 돌아가기

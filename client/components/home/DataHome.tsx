@@ -23,7 +23,7 @@ export const DataHome: React.FC<DataHomeProps> = ({ todayStory }) => {
   console.log('DataHome 렌더링 데이터:', todayStory);
 
   return (
-    <div className="w-full h-screen bg-[#FFFAE7] flex flex-col overflow-hidden">
+    <div className="w-full h-dvh bg-[#FFFAE7] flex flex-col overflow-hidden pb-safe-bottom">
       {/* Scrollable Content */}
       <div className="flex-1 overflow-y-auto px-6 pb-28 py-4">
         {/* Title */}

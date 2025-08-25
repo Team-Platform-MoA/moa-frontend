@@ -25,7 +25,7 @@ export const FamilyBirthYearStep: React.FC = () => {
     parseInt(familyProfile.birthYear) <= new Date().getFullYear();
 
   return (
-    <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
+    <div className="w-screen h-dvh bg-korean-cream flex flex-col fixed inset-0 pb-safe-bottom">
       {/* Header */}
       <div className="pt-6 pb-6">
         <Header title="가족 프로필 설정" showBackButton onBack={handleBack} />
@@ -71,7 +71,7 @@ export const FamilyBirthYearStep: React.FC = () => {
       <div className="flex-1" />
 
       {/* Next button */}
-      <div className="px-6 pb-8">
+      <div className="px-6 pb-16 pt-4">
         <Button variant={isValid ? "primary" : "disabled"} onClick={handleNext}>
           다음
         </Button>

@@ -6,7 +6,7 @@ export function Report() {
   const { currentView } = useReport();
 
   return (
-    <div className="min-h-screen bg-[#FFFAE7]">
+    <div className="min-h-dvh bg-[#FFFAE7] pb-safe-bottom">
       {currentView === "list" ? <ReportList /> : <ReportDetail />}
     </div>
   );

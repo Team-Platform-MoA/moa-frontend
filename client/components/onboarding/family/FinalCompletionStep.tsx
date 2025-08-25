@@ -50,7 +50,7 @@ export const FinalCompletionStep: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
+    <div className="w-screen h-dvh bg-korean-cream flex flex-col fixed inset-0 pb-safe-bottom">
       {/* Header */}
       <div className="pt-6 pb-6">
         <Header title="가족 프로필 설정" showBackButton onBack={handleBack} />
@@ -85,7 +85,7 @@ export const FinalCompletionStep: React.FC = () => {
       </div>
 
       {/* Complete button */}
-      <div className="px-6 pb-8">
+      <div className="px-6 pb-16 pt-4">
         <Button variant="primary" onClick={handleComplete} disabled={isLoading}>
           {isLoading ? "처리 중..." : "완료하기"}
         </Button>

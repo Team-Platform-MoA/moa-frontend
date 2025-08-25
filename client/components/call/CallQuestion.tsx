@@ -154,14 +154,14 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
   }, [isUploaded, resetRecording, onNext]);
 
   return (
-    <div className="w-full h-screen bg-[#FFFAE7] flex flex-col overflow-hidden py-2">
+    <div className="w-full h-dvh bg-[#FFFAE7] flex flex-col py-2 pb-safe-bottom">
       {/* Header */}
       <div className="flex-shrink-0">
         <Header title="모아 Call" showBackButton={true} onBack={onBack} />
       </div>
 
-      {/* Main Content - 뷰포트 높이에 맞춤 */}
-      <div className="flex-1 flex flex-col justify-between px-4 py-2 min-h-0">
+      {/* Main Content - 스크롤 가능하도록 수정 */}
+      <div className="flex-1 flex flex-col px-4 py-2 min-h-0 overflow-y-auto">
         {/* Question Section */}
         <div className="text-center mb-2 mt-10 px-8">
           <p className="text-black font-ownglyph text-3xl sm:text-3xl font-normal leading-tight">
@@ -201,7 +201,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
         </div>
 
         {/* Bottom Section - 캐릭터, 컨트롤, 상태 */}
-        <div className="flex-shrink-0">
+        <div className="mt-auto flex-shrink-0">
           {/* Character Image */}
           <div className="relative mb-8 flex justify-center">
             <img
@@ -217,7 +217,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
               <Button
                 variant={isRecording ? 'danger' : 'primary'}
                 onClick={handleRecordingToggle}
-                className="w-full h-14 text-lg font-bold"
+                className="w-full h-14 text-lg font-bold touch-manipulation select-none"
               >
                 {isRecording ? (
                   <>
@@ -244,7 +244,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
                       handleRecordingToggle();
                     }, 100);
                   }}
-                  className="flex-1 h-12 text-sm"
+                  className="flex-1 h-12 text-sm touch-manipulation select-none"
                 >
                   <RotateCcw className="w-4 h-4 mr-2" />
                   다시 녹음
@@ -252,7 +252,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
                 <Button
                   variant="secondary"
                   onClick={resumeRecording}
-                  className="flex-1 h-12 text-sm"
+                  className="flex-1 h-12 text-sm touch-manipulation select-none"
                 >
                   <Play className="w-4 h-4 mr-2" />
                   이어서 녹음
@@ -262,7 +262,7 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
           </div>
 
           {/* Next Button */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 pb-4">
             <Button
               variant={
                 canUpload ||

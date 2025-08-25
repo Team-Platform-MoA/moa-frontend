@@ -55,7 +55,7 @@ export const Prologue: React.FC = () => {
   const isLastStep = currentStep === 4;
 
   return (
-    <div className="w-screen h-screen bg-korean-cream flex flex-col fixed inset-0">
+    <div className="w-screen h-dvh bg-korean-cream flex flex-col fixed inset-0 pb-safe-bottom">
       {/* Main Content */}
       <div className="flex-1 flex flex-col items-center justify-center px-8">
         {/* Character and Message Section */}
@@ -90,7 +90,7 @@ export const Prologue: React.FC = () => {
         </div>
 
         {/* Next Button */}
-        <div className="w-full max-w-86 px-6">
+        <div className="w-full max-w-86 px-6 pb-safe-bottom">
           <Button variant="primary" onClick={handleNext}>
             {isLastStep ? '시작하기' : '다음'}
           </Button>

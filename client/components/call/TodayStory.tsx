@@ -43,7 +43,7 @@ export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
   };
 
   return (
-    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-hidden py-4 animate-in fade-in slide-in-from-right duration-300">
+    <div className="w-screen h-dvh fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-hidden py-4 animate-in fade-in slide-in-from-right duration-300 pb-safe-bottom">
       {/* Header */}
       <Header title="오늘의 이야기" showBackButton={false} />
 
@@ -243,6 +243,7 @@ export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
           <Button
             variant="primary"
             onClick={handleGoHome}
+            className="touch-manipulation select-none"
             className="w-full h-14 text-lg font-bold"
           >
             홈으로 돌아가기

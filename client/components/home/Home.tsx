@@ -43,7 +43,7 @@ export const Home: React.FC = () => {
   // 로딩 중일 때
   if (isLoading) {
     return (
-      <div className="w-full h-screen bg-[#FFFAE7] flex items-center justify-center">
+      <div className="w-full h-dvh bg-[#FFFAE7] flex items-center justify-center pb-safe-bottom">
         <div className="text-center">
           <div className="text-black font-pretendard text-lg">로딩 중...</div>
           <div className="text-black font-pretendard text-sm mt-2">오늘의 이야기를 확인하고 있어요</div>

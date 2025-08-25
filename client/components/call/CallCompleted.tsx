@@ -2,7 +2,7 @@ import { BottomNavigation } from "@/components/korean/BottomNavigation";
 
 export const CallCompleted: React.FC = () => {
   return (
-    <div className="w-screen h-screen fixed inset-0 bg-[#FFFAE7] flex flex-col">
+    <div className="w-screen h-dvh fixed inset-0 bg-[#FFFAE7] flex flex-col pb-safe-bottom">
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
