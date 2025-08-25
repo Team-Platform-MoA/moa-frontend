@@ -65,7 +65,7 @@ export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
             <p className="text-black font-ownglyph text-xl font-normal leading-normal tracking-tight whitespace-pre-line">
               {story.moaLetter}
             </p>
-            
+
             {story.actions && (
               <>
                 <p className="text-black font-ownglyph text-xl font-bold leading-normal tracking-tight whitespace-pre-line mt-4">
@@ -243,8 +243,7 @@ export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
           <Button
             variant="primary"
             onClick={handleGoHome}
-            className="touch-manipulation select-none"
-            className="w-full h-14 text-lg font-bold"
+            className="w-full h-14 text-lg font-bold touch-manipulation select-none"
           >
             홈으로 돌아가기
           </Button>
