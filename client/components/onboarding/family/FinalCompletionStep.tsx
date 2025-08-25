@@ -50,48 +50,55 @@ export const FinalCompletionStep: React.FC = () => {
   };
 
   return (
-    <div className="w-screen h-dvh bg-korean-cream flex flex-col fixed inset-0 pb-safe-bottom">
+    <div className="w-screen h-dvh bg-korean-cream flex flex-col fixed inset-0">
       {/* Header */}
-      <div className="pt-6 pb-6">
+      <div className="flex-shrink-0 pt-6 pb-6">
         <Header title="가족 프로필 설정" showBackButton onBack={handleBack} />
       </div>
 
       {/* Progress */}
-      <div className="pb-4">
+      <div className="flex-shrink-0 pb-4">
         <ProgressBar current={5} total={5} />
       </div>
 
-      {/* Content */}
-      <div className="flex-1 flex flex-col items-center px-16 pt-8">
-        <div className="text-center mb-8">
-          <h2 className="text-black font-ownglyph text-[32px] font-normal leading-tight tracking-tight mb-6">
-            전부 완성되었어요!
-            <br />
-            <br />
-            이제 제가 {userProfile.name}님께 맞는
-            <br />
-            마음 케어를 시작해드릴게요.
-          </h2>
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="flex flex-col items-center px-8 py-4 min-h-full">
+          <div className="text-center mb-6 flex-shrink-0">
+            <h2 className="text-black font-ownglyph text-[28px] font-normal leading-tight tracking-tight mb-4">
+              전부 완성되었어요!
+              <br />
+              <br />
+              이제 제가 {userProfile.name}님께 맞는
+              <br />
+              마음 케어를 시작해드릴게요.
+            </h2>
+          </div>
+
+          {/* Character Image */}
+          <div className="mb-6 flex-shrink-0">
+            <img
+              src="/images/call/character-completed.png"
+              alt="완료된 모아 캐릭터"
+              className="w-40 h-40 object-contain"
+            />
+          </div>
+
+          {/* Spacer to push button down */}
+          <div className="flex-1 min-h-4" />
+
+          {/* Complete button */}
+          <div className="w-full px-4 pb-8 pt-4 pb-safe-bottom flex-shrink-0">
+            <Button 
+              variant="primary" 
+              onClick={handleComplete} 
+              disabled={isLoading}
+              className="w-full h-14 text-lg font-bold"
+            >
+              {isLoading ? "처리 중..." : "완료하기"}
+            </Button>
+          </div>
         </div>
-
-        {/* Character Image */}
-        <div className="mb-8 flex-shrink-0">
-          <img
-            src="/images/call/character-completed.png"
-            alt="완료된 모아 캐릭터"
-            className="w-48 h-48 object-contain"
-          />
-        </div>
-
-        {/* Spacer */}
-        <div className="flex-1 min-h-8" />
-      </div>
-
-      {/* Complete button */}
-      <div className="px-6 pb-16 pt-4">
-        <Button variant="primary" onClick={handleComplete} disabled={isLoading}>
-          {isLoading ? "처리 중..." : "완료하기"}
-        </Button>
       </div>
     </div>
   );
