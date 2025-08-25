@@ -84,7 +84,13 @@ export const CallProvider: React.FC<{ children: React.ReactNode }> = ({
       ];
 
       const currentIndex = stepOrder.indexOf(prev.currentStep);
-      const nextIndex = currentIndex + 1;
+      let nextIndex = currentIndex + 1;
+
+      // loading5 이후에는 loading1로 다시 돌아가서 반복
+      if (prev.currentStep === "loading5") {
+        const loading1Index = stepOrder.indexOf("loading1");
+        nextIndex = loading1Index;
+      }
 
       if (nextIndex < stepOrder.length) {
         const nextStep = stepOrder[nextIndex];
