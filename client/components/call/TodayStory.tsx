@@ -43,7 +43,7 @@ export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
   };
 
   return (
-    <div className="w-screen h-dvh fixed inset-0 bg-[#FFFAE7] flex flex-col overflow-hidden py-4 animate-in fade-in slide-in-from-right duration-300 pb-safe-bottom">
+    <div className="w-full h-dvh bg-[#FFFAE7] flex flex-col py-4 animate-in fade-in slide-in-from-right duration-300 pb-safe-bottom">
       {/* Header */}
       <Header title="오늘의 이야기" showBackButton={false} />
 
@@ -88,13 +88,13 @@ export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
           {/* Score Circle and Progress */}
           <div className="flex items-center mb-4">
             {/* Blob background */}
-            <div className="relative">
+            <div className="relative w-[60px] h-[68px] flex-shrink-0">
               <svg
                 width="60"
                 height="68"
                 viewBox="0 0 60 68"
                 fill="none"
-                className="absolute"
+                className="absolute inset-0"
               >
                 <path
                   fillRule="evenodd"
@@ -103,7 +103,7 @@ export const TodayStory: React.FC<TodayStoryProps> = ({ story }) => {
                   fill="#DCEAEB"
                 />
               </svg>
-              <div className="relative z-10 w-[60px] h-[68px] flex items-center justify-center">
+              <div className="relative w-full h-full flex items-center justify-center">
                 <span className="text-[36px] font-medium text-black font-['Pretendard']">
                   {story.emotionScore}
                 </span>
