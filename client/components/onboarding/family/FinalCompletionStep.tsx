@@ -62,9 +62,9 @@ export const FinalCompletionStep: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="flex-1 flex flex-col items-center justify-center px-16">
-        <div className="text-center mb-12">
-          <h2 className="text-black font-ownglyph text-[32px] font-normal leading-tight tracking-tight mb-8">
+      <div className="flex-1 flex flex-col items-center px-16 pt-8">
+        <div className="text-center mb-8">
+          <h2 className="text-black font-ownglyph text-[32px] font-normal leading-tight tracking-tight mb-6">
             전부 완성되었어요!
             <br />
             <br />
@@ -75,13 +75,16 @@ export const FinalCompletionStep: React.FC = () => {
         </div>
 
         {/* Character Image */}
-        <div className="mb-12">
+        <div className="mb-8 flex-shrink-0">
           <img
             src="/images/call/character-completed.png"
             alt="완료된 모아 캐릭터"
-            className="w-60 h-60 object-contain"
+            className="w-48 h-48 object-contain"
           />
         </div>
+
+        {/* Spacer */}
+        <div className="flex-1 min-h-8" />
       </div>
 
       {/* Complete button */}
