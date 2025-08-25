@@ -90,22 +90,33 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
 
   const handleUploadAndNext = async () => {
     console.log(
-      'handleUploadAndNext 호출, recordingState:',
-      recordingState,
-      'isRecording:',
-      isRecording,
+      '[모바일 디버그] handleUploadAndNext 호출',
+      {
+        recordingState,
+        isRecording,
+        canUpload,
+        audioBlob: !!audioBlob,
+        isUploading,
+        isUploaded
+      }
     );
+
+    // 이미 업로딩 중이면 중복 실행 방지
+    if (isUploading) {
+      console.log('[모바일 디버그] 이미 업로딩 중, 중복 실행 방지');
+      return;
+    }
 
     // 녹음을 한 번도 시작하지 않은 경우 (Skip)
     if (recordingState === 'idle') {
-      console.log('녹음 없이 다음 질문으로 Skip');
+      console.log('[모바일 디버그] 녹음 없이 다음 질문으로 Skip');
       onNext();
       return;
     }
 
     // 녹음 중이면 자동 업로드 플래그를 설정하고 녹음 정지
     if (isRecording) {
-      console.log('녹음 중이므로 자동 업로드 플래그 설정 후 정지');
+      console.log('[모바일 디버그] 녹음 중이므로 자동 업로드 플래그 설정 후 정지');
       shouldAutoUploadRef.current = true;
       stopRecording();
       return;
@@ -114,29 +125,35 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
     // 정지 상태에서 녹음 파일이 있으면 업로드
     if (recordingState === 'stopped' && audioBlob) {
       try {
+        console.log('[모바일 디버그] 업로드 시작, questionNumber:', questionNumber);
+        
         // 질문 3 업로드 시작 시 로딩 화면으로 이동
         if (questionNumber === 3 && onUploadStart) {
+          console.log('[모바일 디버그] 질문 3 - 로딩 화면으로 이동');
           onUploadStart();
         }
 
         const result = await uploadAudio(audioBlob, questionNumber);
+        console.log('[모바일 디버그] 업로드 완료:', result);
 
         // 질문 3 완료 시 onComplete 콜백 호출
         if (questionNumber === 3 && onComplete && result) {
-          console.log('질문 3 완료, onComplete 콜백 호출:', result);
+          console.log('[모바일 디버그] 질문 3 완료, onComplete 콜백 호출:', result);
           onComplete(result);
-          // 질문 3은 onComplete에서 화면 전환 처리하므로 여기서는 resetRecording만
           resetRecording();
           return;
         }
 
-        resetRecording();
+        console.log('[모바일 디버그] 다음 질문으로 이동 후 녹음 리셋');
         onNext();
+        setTimeout(() => {
+          resetRecording();
+        }, 100);
       } catch (error) {
-        console.error('Upload failed:', error);
+        console.error('[모바일 디버그] Upload failed:', error);
       }
     } else {
-      console.log('업로드 조건 불충족:', {
+      console.log('[모바일 디버그] 업로드 조건 불충족:', {
         recordingState,
         audioBlob: !!audioBlob,
         canUpload,
@@ -146,12 +163,17 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
 
   // 업로드 완료 시 자동으로 다음 질문으로 이동
   useEffect(() => {
-    if (isUploaded) {
-      console.log('업로드 완료, 자동으로 다음 질문으로 이동');
-      resetRecording();
+    console.log('[모바일 디버그] useEffect - isUploaded:', isUploaded, 'questionNumber:', questionNumber);
+    if (isUploaded && questionNumber !== 3) {
+      console.log('[모바일 디버그] 업로드 완료, 자동으로 다음 질문으로 이동');
+      // onNext를 먼저 호출한 후 resetRecording 호출
       onNext();
+      // 다음 틱에서 resetRecording 실행
+      setTimeout(() => {
+        resetRecording();
+      }, 0);
     }
-  }, [isUploaded, resetRecording, onNext]);
+  }, [isUploaded, resetRecording, onNext, questionNumber]);
 
   return (
     <div className="w-full h-dvh bg-[#FFFAE7] flex flex-col py-2 pb-safe-bottom">
@@ -272,10 +294,23 @@ export const CallQuestion: React.FC<CallQuestionProps> = ({
                   ? 'primary'
                   : 'waiting'
               }
-              onClick={handleUploadAndNext}
+              onClick={() => {
+                console.log('[모바일 디버그] 클릭 이벤트 발생', { 
+                  disabled: isUploading,
+                  canUpload,
+                  recordingState 
+                });
+                handleUploadAndNext();
+              }}
               disabled={isUploading}
-              className="w-full h-14 text-lg font-bold touch-manipulation select-none"
-              style={{ touchAction: 'manipulation' }}
+              className="w-full h-14 text-lg font-bold touch-manipulation select-none cursor-pointer active:scale-95 transition-transform"
+              style={{ 
+                touchAction: 'manipulation',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                WebkitTouchCallout: 'none',
+                WebkitTapHighlightColor: 'transparent'
+              }}
             >
               {(() => {
                 if (isUploading) return '업로드 중...';
